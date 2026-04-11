@@ -1,6 +1,4 @@
-import org.gradle.kotlin.dsl.from
 import org.gradle.kotlin.dsl.invoke
-import org.gradle.kotlin.dsl.tasks
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -56,12 +54,10 @@ tasks.register<Copy>("copyJars") {
     }
     from("./fabric/build/libs/") {
         include("*.jar")
-        exclude("*-sources.jar")
         exclude("*-dev-shadow.jar")
     }
     from("./neoforge/build/libs/") {
         include("*.jar")
-        exclude("*-sources.jar")
         exclude("*-dev-shadow.jar")
     }
     into("./output/")

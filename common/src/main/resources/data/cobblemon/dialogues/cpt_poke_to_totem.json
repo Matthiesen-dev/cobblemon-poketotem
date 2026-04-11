@@ -53,7 +53,7 @@
               "expression": "v.slot2.species.name;"
             },
             "isVisible": "v.slot2 != 0",
-            "value": "s1",
+            "value": "s2",
             "action": [
               "q.player.poketototem(1);",
               "q.dialogue.close();"
@@ -65,7 +65,7 @@
               "expression": "v.slot3.species.name;"
             },
             "isVisible": "v.slot3 != 0",
-            "value": "s1",
+            "value": "s3",
             "action": [
               "q.player.poketototem(2);",
               "q.dialogue.close();"
@@ -77,7 +77,7 @@
               "expression": "v.slot4.species.name;"
             },
             "isVisible": "v.slot4 != 0",
-            "value": "s1",
+            "value": "s4",
             "action": [
               "q.player.poketototem(3);",
               "q.dialogue.close();"
@@ -89,7 +89,7 @@
               "expression": "v.slot5.species.name;"
             },
             "isVisible": "v.slot5 != 0",
-            "value": "s1",
+            "value": "s5",
             "action": [
               "q.player.poketototem(4);",
               "q.dialogue.close();"
@@ -101,7 +101,7 @@
               "expression": "v.slot6.species.name;"
             },
             "isVisible": "v.slot6 != 0",
-            "value": "s1",
+            "value": "s6",
             "action": [
               "q.player.poketototem(5);",
               "q.dialogue.close();"

@@ -16,7 +16,7 @@ public class CobblemonPokeTotemConfig {
         public int COMMAND_POKETOTOTEM_SERVER_PERMISSION_LEVEL = 2;
 
         @SerializedName("command.totemtopoke")
-        public int COMMAND_TOTEMTOPOKE_PERMISSION_LEVEL = 2;
+        public int COMMAND_TOTEMTOPOKE_PERMISSION_LEVEL = 0;
 
         @SerializedName("command.totemtopoke-server")
         public int COMMAND_TOTEMTOPOKE_SERVER_LEVEL = 2;

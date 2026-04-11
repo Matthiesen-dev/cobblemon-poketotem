@@ -46,7 +46,7 @@ public class PokemonUtility {
 
         CustomData customData = CustomData.of(customDataTag);
 
-        return new ItemBuilder(initialItem).setCustomData(customData).build();
+        return new ItemBuilder(initialItem).setCustomData(customData).setFunctionFeature().build();
     }
 
     public static ItemStack pokemonToItem(Pokemon pokemon) {

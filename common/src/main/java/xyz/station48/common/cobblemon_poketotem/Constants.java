@@ -10,6 +10,7 @@ public class Constants {
     public static final String NBTPokemonDataTag = "CPT_NBT";
     public static final String NBTStandardFnTag = "CPT_FN";
     public static final String NBTStandardFnData = "cpt-poke-totem-fn";
+    public static final String NBTCloneFnData = "cpt-poke-totem-clone-fn";
 
     public static Logger LOGGER = LogManager.getLogger(ModName);
 
