@@ -69,11 +69,7 @@ public class ItemBuilder {
         tag.getAllKeys().forEach(key -> newTag.put(key, tag.get(key)));
 
         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(newTag));
-        return this;
-    }
-
-    public ItemBuilder setAmount(int amount) {
-        this.stack.setCount(amount);
+        stack.set(DataComponents.MAX_STACK_SIZE, 1);
         return this;
     }
 

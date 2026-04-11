@@ -11,6 +11,8 @@ public class PokemonToTotemPermissions {
     public final PokemonToTotemPermission POKETOTOTEM_SERVER_PERMISSION;
     public final PokemonToTotemPermission TOTEMTOPOKE_PERMISSION;
     public final PokemonToTotemPermission TOTEMTOPOKE_SERVER_PERMISSION;
+    public final PokemonToTotemPermission TOTEMTOPOKE_REDEEM_PERMISSION;
+    public final PokemonToTotemPermission TOTEMTOPOKE_REDEEM_SERVER_PERMISSION;
 
     public PokemonToTotemPermissions() {
         this.POKETOTOTEM_PERMISSION = new PokemonToTotemPermission(
@@ -26,8 +28,16 @@ public class PokemonToTotemPermissions {
                 toPermLevel(CobblemonPokeTotem.config.permissionLevels.COMMAND_TOTEMTOPOKE_PERMISSION_LEVEL)
         );
         this.TOTEMTOPOKE_SERVER_PERMISSION = new PokemonToTotemPermission(
-                Constants.ModId + ".command.totemtopokeserver",
+                Constants.ModId + ".command.totemtopoke-server",
                 toPermLevel(CobblemonPokeTotem.config.permissionLevels.COMMAND_TOTEMTOPOKE_SERVER_LEVEL)
+        );
+        this.TOTEMTOPOKE_REDEEM_PERMISSION = new PokemonToTotemPermission(
+                Constants.ModId + ".command.totemtopoke-redeem",
+                toPermLevel(CobblemonPokeTotem.config.permissionLevels.COMMAND_TOTEMTOPOKE_REDEEM_PERMISSION_LEVEL)
+        );
+        this.TOTEMTOPOKE_REDEEM_SERVER_PERMISSION = new PokemonToTotemPermission(
+                Constants.ModId + ".command.totemtopoke-redeem-server",
+                toPermLevel(CobblemonPokeTotem.config.permissionLevels.COMMAND_TOTEMTOPOKE_REDEEM_SERVER_PERMISSION_LEVEL)
         );
     }
 

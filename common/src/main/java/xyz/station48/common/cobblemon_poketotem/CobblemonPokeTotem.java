@@ -5,10 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.commands.CommandSourceStack;
-import xyz.station48.common.cobblemon_poketotem.commands.PokeToTotem;
-import xyz.station48.common.cobblemon_poketotem.commands.PokeToTotemServer;
-import xyz.station48.common.cobblemon_poketotem.commands.TotemToPoke;
-import xyz.station48.common.cobblemon_poketotem.commands.TotemToPokeServer;
+import xyz.station48.common.cobblemon_poketotem.commands.*;
 import xyz.station48.common.cobblemon_poketotem.config.CobblemonPokeTotemConfig;
 import xyz.station48.common.cobblemon_poketotem.molang.PlayerFunctionsExtension;
 import xyz.station48.common.cobblemon_poketotem.permissions.PokemonToTotemPermissions;
@@ -130,5 +127,7 @@ public class CobblemonPokeTotem {
         new PokeToTotemServer().register(dispatcher);
         new TotemToPoke().register(dispatcher);
         new TotemToPokeServer().register(dispatcher);
+        new TotemToPokeRedeem().register(dispatcher);
+        new TotemToPokeRedeemServer().register(dispatcher);
     }
 }
