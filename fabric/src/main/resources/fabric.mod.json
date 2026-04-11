@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${version}",
+  "name": "Cobblemon Poketotem (Fabric)",
+  "description": "",
+  "authors": [
+    "Adam Matthiesen"
+  ],
+  "license": "MIT License",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "xyz.station48.fabric.cobblemon_poketotem.CobblemonPokeTotemFabric"
+    ]
+  },
+  "depends": {
+    "minecraft": "1.21.1",
+    "cobblemon": ">=1.7.3 <1.8.0"
+  }
+}
