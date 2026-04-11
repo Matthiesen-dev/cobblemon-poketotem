@@ -1,6 +1,6 @@
 # Cobblemon Poketotem
 
-This mod adds PokeTotems to the game. PokeTotems are item versions of Pokemon.
+This is a Server-Side only mod that adds PokeTotems to the game. PokeTotems are item versions of Pokemon.
 There is two versions of PokeTotems, Normal and Clones.
 
 Normal PokeTotems keep their UUID and OT data intact, while Clones get new UUIDs and OTs assigned.
