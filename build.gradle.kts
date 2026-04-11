@@ -56,12 +56,10 @@ tasks.register<Copy>("copyJars") {
     }
     from("./fabric/build/libs/") {
         include("*.jar")
-        exclude("*-sources.jar")
         exclude("*-dev-shadow.jar")
     }
     from("./neoforge/build/libs/") {
         include("*.jar")
-        exclude("*-sources.jar")
         exclude("*-dev-shadow.jar")
     }
     into("./output/")
