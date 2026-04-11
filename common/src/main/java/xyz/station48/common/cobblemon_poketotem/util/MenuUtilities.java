@@ -12,10 +12,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MenuUtilities {
     public static final Item BACKGROUND = Items.GRAY_STAINED_GLASS_PANE;
+    public static final Item SEPARATOR = CobblemonItems.PC;
     public static final Item EMPTY_SLOT = CobblemonItems.POKE_BALL;
 
     public static final List<Item> MENU_ITEMS = List.of(
             BACKGROUND,
+            SEPARATOR,
             EMPTY_SLOT
     );
 
@@ -31,6 +33,13 @@ public class MenuUtilities {
 
     public static ItemStack getFrameItem() {
         return new ItemBuilder(BACKGROUND)
+                .setCustomName(Component.literal(" "))
+                .build();
+    }
+
+    public static ItemStack getSeparatorItem() {
+        return new ItemBuilder(SEPARATOR)
+                .hideAdditional()
                 .setCustomName(Component.literal(" "))
                 .build();
     }

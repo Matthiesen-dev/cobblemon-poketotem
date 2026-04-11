@@ -16,26 +16,22 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import xyz.station48.common.cobblemon_poketotem.CobblemonPokeTotem;
 import xyz.station48.common.cobblemon_poketotem.Constants;
-import xyz.station48.common.cobblemon_poketotem.permissions.PokemonToTotemPermissions;
+import xyz.station48.common.cobblemon_poketotem.permissions.CobblemonPokeTotemPermissions;
 import xyz.station48.common.cobblemon_poketotem.util.PokemonUtility;
 
 public class TotemToPoke {
     public void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
                 Commands.literal("totemtopoke")
-                        .requires(src -> PokemonToTotemPermissions.checkPermission(
+                        .requires(src -> CobblemonPokeTotemPermissions.checkPermission(
                                 src,
                                 CobblemonPokeTotem.permissions.TOTEMTOPOKE_PERMISSION
                         ))
-                        .executes(this::self)
+                        .executes(this::runner)
         );
     }
 
-    private int self(CommandContext<CommandSourceStack> ctx) {
-        ServerPlayer target = ctx.getSource().getPlayer();
-        if (target == null) {
-            return 0;
-        }
+    public void shared(ServerPlayer target) {
         ItemStack item = target.getMainHandItem();
 
         // Make sure the item has CustomData
@@ -45,7 +41,7 @@ public class TotemToPoke {
 
             if (tag.contains(Constants.NBTCloneDataTag)) {
                 target.displayClientMessage(Component.literal("[§c§lCobblemonPokeTotem§f] §c§lYou are holding a Totem that requires the '/totemtopoke-redeem' command!"), false);
-                return 1;
+                return;
             }
 
             // Check if it has a "pokemon" tag
@@ -82,7 +78,14 @@ public class TotemToPoke {
                     false
             );
         }
+    }
 
+    private int runner(CommandContext<CommandSourceStack> ctx) {
+        ServerPlayer target = ctx.getSource().getPlayer();
+        if (target == null) {
+            return 0;
+        }
+        shared(target);
         return 1;
     }
 }

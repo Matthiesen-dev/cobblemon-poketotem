@@ -8,20 +8,20 @@ import net.minecraft.commands.CommandSourceStack;
 import xyz.station48.common.cobblemon_poketotem.commands.*;
 import xyz.station48.common.cobblemon_poketotem.config.CobblemonPokeTotemConfig;
 import xyz.station48.common.cobblemon_poketotem.molang.PlayerFunctionsExtension;
-import xyz.station48.common.cobblemon_poketotem.permissions.PokemonToTotemPermissions;
+import xyz.station48.common.cobblemon_poketotem.permissions.CobblemonPokeTotemPermissions;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 
 public class CobblemonPokeTotem {
-    public static PokemonToTotemPermissions permissions;
+    public static CobblemonPokeTotemPermissions permissions;
     public static CobblemonPokeTotemConfig config;
 
     public static void initialize() {
         Constants.createInfoLog("Initialized");
         loadConfig();
-        permissions = new PokemonToTotemPermissions();
+        permissions = new CobblemonPokeTotemPermissions();
 
         // Extend Cobblemon's Molang functions
         PlayerFunctionsExtension.register();

@@ -1,11 +1,9 @@
 package xyz.station48.common.cobblemon_poketotem.util;
 
-import com.cobblemon.mod.common.item.components.FoodComponent;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Unit;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
@@ -14,7 +12,6 @@ import net.minecraft.world.item.component.ItemLore;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 

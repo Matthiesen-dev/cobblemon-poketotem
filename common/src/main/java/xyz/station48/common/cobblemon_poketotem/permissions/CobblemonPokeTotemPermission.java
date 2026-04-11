@@ -6,13 +6,13 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 import xyz.station48.common.cobblemon_poketotem.Constants;
 
-public class PokemonToTotemPermission implements Permission {
+public class CobblemonPokeTotemPermission implements Permission {
     private final String node;
     private final PermissionLevel level;
     private final ResourceLocation identifier;
     private final String literal;
 
-    public PokemonToTotemPermission(String node, PermissionLevel level) {
+    public CobblemonPokeTotemPermission(String node, PermissionLevel level) {
         this.node = node;
         this.level = level;
         this.identifier = ResourceLocation.fromNamespaceAndPath(Constants.ModId, this.node);
@@ -39,7 +39,7 @@ public class PokemonToTotemPermission implements Permission {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PokemonToTotemPermission that = (PokemonToTotemPermission) o;
+        CobblemonPokeTotemPermission that = (CobblemonPokeTotemPermission) o;
         return java.util.Objects.equals(node, that.node) &&
                 java.util.Objects.equals(level, that.level);
     }
@@ -51,7 +51,7 @@ public class PokemonToTotemPermission implements Permission {
 
     @Override
     public String toString() {
-        return "PokemonToTotemPermission{" +
+        return "CobblemonPokeTotem{" +
                 "node='" + node + '\'' +
                 ", level=" + level +
                 ", identifier=" + identifier +

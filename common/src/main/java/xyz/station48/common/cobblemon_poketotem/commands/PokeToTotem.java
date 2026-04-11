@@ -8,17 +8,17 @@ import net.minecraft.server.level.ServerPlayer;
 import xyz.station48.common.cobblemon_poketotem.CobblemonPokeTotem;
 import xyz.station48.common.cobblemon_poketotem.menu.PokeToTotemCloneMenu;
 import xyz.station48.common.cobblemon_poketotem.menu.PokeToTotemMenu;
-import xyz.station48.common.cobblemon_poketotem.permissions.PokemonToTotemPermissions;
+import xyz.station48.common.cobblemon_poketotem.permissions.CobblemonPokeTotemPermissions;
 
 public class PokeToTotem {
     public void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
                 Commands.literal("poketototem")
-                        .requires(src -> PokemonToTotemPermissions.checkPermission(
+                        .requires(src -> CobblemonPokeTotemPermissions.checkPermission(
                                 src,
                                 CobblemonPokeTotem.permissions.POKETOTOTEM_PERMISSION
                         ))
-                        .executes(this::self)
+                        .executes(this::normal)
                         .then(
                                 Commands.literal("clone")
                                         .executes(this::clone)
@@ -26,7 +26,7 @@ public class PokeToTotem {
         );
     }
 
-    private int self(CommandContext<CommandSourceStack> ctx) {
+    private int normal(CommandContext<CommandSourceStack> ctx) {
         if (ctx.getSource().getPlayer() != null) {
             ServerPlayer player = ctx.getSource().getPlayer();
             player.openMenu(new PokeToTotemMenu(player));
