@@ -43,7 +43,7 @@ public class TotemToPokeRedeemServer {
         try {
             target = EntityArgument.getPlayer(ctx, "player");
         } catch (CommandSyntaxException e) {
-            throw new RuntimeException(e);
+            return 0;
         }
         ItemStack item = target.getMainHandItem();
 
@@ -51,6 +51,11 @@ public class TotemToPokeRedeemServer {
         CustomData customData = item.get(DataComponents.CUSTOM_DATA);
         if (customData != null) {
             CompoundTag tag = customData.copyTag();
+
+            if (tag.contains(Constants.NBTPokemonDataTag)) {
+                target.displayClientMessage(Component.literal("[§c§lCobblemonPokeTotem§f] §c§lYou are holding a Totem that requires the '/totemtopoke' command!"), false);
+                return 1;
+            }
 
             // Check if it has a "pokemon" tag
             if (tag.contains(Constants.NBTCloneDataTag)) {

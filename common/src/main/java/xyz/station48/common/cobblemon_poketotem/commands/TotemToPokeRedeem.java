@@ -43,6 +43,11 @@ public class TotemToPokeRedeem {
         if (customData != null) {
             CompoundTag tag = customData.copyTag();
 
+            if (tag.contains(Constants.NBTPokemonDataTag)) {
+                target.displayClientMessage(Component.literal("[§c§lCobblemonPokeTotem§f] §c§lYou are holding a Totem that requires the '/totemtopoke' command!"), false);
+                return 1;
+            }
+
             // Check if it has a "pokemon" tag
             if (tag.contains(Constants.NBTCloneDataTag)) {
                 CompoundTag pokemonTag = tag.getCompound(Constants.NBTCloneDataTag);
