@@ -1,4 +1,6 @@
+import org.gradle.kotlin.dsl.from
 import org.gradle.kotlin.dsl.invoke
+import org.gradle.kotlin.dsl.tasks
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -42,5 +44,32 @@ allprojects {
                 jvmTarget.set(JvmTarget.JVM_21)
             }
         }
+    }
+}
+
+tasks.register<Copy>("copyJars") {
+    group = "build"
+    description = "Copies JAR files from fabric and neoforge to output directory"
+
+    from("./common/build/libs/") {
+        include("*-sources.jar")
+    }
+    from("./fabric/build/libs/") {
+        include("*.jar")
+        exclude("*-sources.jar")
+        exclude("*-dev-shadow.jar")
+    }
+    from("./neoforge/build/libs/") {
+        include("*.jar")
+        exclude("*-sources.jar")
+        exclude("*-dev-shadow.jar")
+    }
+    into("./output/")
+
+    doFirst {
+        delete(fileTree("./output/") {
+            include("**/*")
+        })
+        file("./output/").mkdirs()
     }
 }

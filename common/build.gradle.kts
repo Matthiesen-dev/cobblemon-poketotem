@@ -26,4 +26,10 @@ tasks {
     test {
         useJUnitPlatform()
     }
+
+    remapSourcesJar {
+        archiveBaseName.set("${rootProject.property("archives_base_name")}-${project.name}")
+        archiveVersion.set("${project.version}")
+        archiveClassifier.set("sources")
+    }
 }

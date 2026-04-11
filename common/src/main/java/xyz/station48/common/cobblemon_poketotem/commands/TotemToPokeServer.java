@@ -4,7 +4,6 @@ import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.api.storage.party.PartyStore;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.commands.CommandSourceStack;

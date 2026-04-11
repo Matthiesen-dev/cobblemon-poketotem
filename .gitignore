@@ -7,6 +7,8 @@ bin
 .project
 /.architectury-transformer/
 
+output
+
 # idea
 out
 *.ipr
