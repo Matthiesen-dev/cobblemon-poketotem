@@ -7,7 +7,6 @@ import net.minecraft.util.Unit;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
-import net.minecraft.world.item.component.CustomModelData;
 import net.minecraft.world.item.component.ItemLore;
 
 import java.util.Arrays;
@@ -44,11 +43,6 @@ public class ItemBuilder {
 
         itemLore = new ItemLore(list);
         stack.set(DataComponents.LORE, itemLore);
-        return this;
-    }
-
-    public ItemBuilder setCustomModel(int customModelVal) {
-        this.stack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(customModelVal));
         return this;
     }
 

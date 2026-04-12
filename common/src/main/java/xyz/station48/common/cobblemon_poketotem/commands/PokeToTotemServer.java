@@ -18,7 +18,9 @@ import xyz.station48.common.cobblemon_poketotem.CobblemonPokeTotem;
 import xyz.station48.common.cobblemon_poketotem.permissions.CobblemonPokeTotemPermissions;
 import xyz.station48.common.cobblemon_poketotem.util.PokemonUtility;
 
-public class PokeToTotemServer {
+public class PokeToTotemServer implements ICommand {
+    public PokeToTotemServer() {}
+
     public void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
                 Commands.literal("poketototem-server")

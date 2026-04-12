@@ -1,5 +1,6 @@
 package xyz.station48.common.cobblemon_poketotem.util;
 
+import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.api.pokemon.stats.Stats;
 import com.cobblemon.mod.common.api.storage.party.PartyStore;
 import com.cobblemon.mod.common.item.PokemonItem;
@@ -12,7 +13,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import xyz.station48.common.cobblemon_poketotem.Constants;
@@ -31,11 +31,14 @@ public class PokemonUtility {
         return pokemonToClone.clone(true, registryAccess);
     }
 
-    public static void givePlayerPokemonItem(Player player, ItemStack pokemonItem, PartyStore storage, Pokemon pokemon) {
+    public static void givePlayerPokemonItem(ServerPlayer player, ItemStack pokemonItem, PartyStore storage, Pokemon pokemon) {
         if (!player.getInventory().add(pokemonItem)) {
             player.drop(pokemonItem, false);
         }
-        storage.remove(pokemon);
+        if(!storage.remove(pokemon)){
+            var pc = Cobblemon.INSTANCE.getStorage().getPC(player);
+            pc.remove(pokemon);
+        }
     }
 
     public static ItemStack createCustomPokeTotem(Pokemon pokemon, RegistryAccess registryAccess, Integer slot) {

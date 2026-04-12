@@ -19,7 +19,9 @@ import xyz.station48.common.cobblemon_poketotem.Constants;
 import xyz.station48.common.cobblemon_poketotem.permissions.CobblemonPokeTotemPermissions;
 import xyz.station48.common.cobblemon_poketotem.util.PokemonUtility;
 
-public class TotemToPokeRedeem {
+public class TotemToPokeRedeem implements ICommand {
+    public TotemToPokeRedeem() {}
+
     public void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
                 Commands.literal("totemtopoke-redeem")
@@ -31,7 +33,7 @@ public class TotemToPokeRedeem {
         );
     }
 
-    public void shared(ServerPlayer target) {
+    public static void shared(ServerPlayer target) {
         ItemStack item = target.getMainHandItem();
 
         // Make sure the item has CustomData

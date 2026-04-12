@@ -1,16 +1,19 @@
 package xyz.station48.common.cobblemon_poketotem.commands;
 
+import ca.landonjw.gooeylibs2.api.UIManager;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.server.level.ServerPlayer;
 import xyz.station48.common.cobblemon_poketotem.CobblemonPokeTotem;
-import xyz.station48.common.cobblemon_poketotem.menu.PokeToTotemCloneMenu;
-import xyz.station48.common.cobblemon_poketotem.menu.PokeToTotemMenu;
+import xyz.station48.common.cobblemon_poketotem.menu.CPTMainCloneScreen;
+import xyz.station48.common.cobblemon_poketotem.menu.CPTMainScreen;
 import xyz.station48.common.cobblemon_poketotem.permissions.CobblemonPokeTotemPermissions;
 
-public class PokeToTotem {
+public class PokeToTotem implements ICommand {
+    public PokeToTotem() {}
+
     public void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
                 Commands.literal("poketototem")
@@ -29,7 +32,7 @@ public class PokeToTotem {
     private int normal(CommandContext<CommandSourceStack> ctx) {
         if (ctx.getSource().getPlayer() != null) {
             ServerPlayer player = ctx.getSource().getPlayer();
-            player.openMenu(new PokeToTotemMenu(player));
+            UIManager.openUIForcefully(player, new CPTMainScreen(player).getPage());
         }
         return 1;
     }
@@ -37,7 +40,7 @@ public class PokeToTotem {
     private int clone(CommandContext<CommandSourceStack> ctx) {
         if (ctx.getSource().getPlayer() != null) {
             ServerPlayer player = ctx.getSource().getPlayer();
-            player.openMenu(new PokeToTotemCloneMenu(player));
+            UIManager.openUIForcefully(player, new CPTMainCloneScreen(player).getPage());
         }
         return 1;
     }

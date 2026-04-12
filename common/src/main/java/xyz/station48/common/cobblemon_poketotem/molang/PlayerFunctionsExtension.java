@@ -35,7 +35,7 @@ public class PlayerFunctionsExtension {
                 // Give player the item if pokemon is not null
                 if (pokemon != null) {
                     ItemStack pokemonItem = PokemonUtility.createCustomPokeTotem(pokemon, registryAccess, slot);
-                    PokemonUtility.givePlayerPokemonItem(player, pokemonItem, storage, pokemon);
+                    PokemonUtility.givePlayerPokemonItem((ServerPlayer) player, pokemonItem, storage, pokemon);
                     return 0;
                 }
                 return 0;

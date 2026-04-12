@@ -123,11 +123,6 @@ public class CobblemonPokeTotem {
 
     public static void registerCommands(CommandDispatcher<CommandSourceStack> dispatcher) {
         Constants.createInfoLog("Registering Commands");
-        new PokeToTotem().register(dispatcher);
-        new PokeToTotemServer().register(dispatcher);
-        new TotemToPoke().register(dispatcher);
-        new TotemToPokeServer().register(dispatcher);
-        new TotemToPokeRedeem().register(dispatcher);
-        new TotemToPokeRedeemServer().register(dispatcher);
+        CommandRegistry.init(dispatcher);
     }
 }

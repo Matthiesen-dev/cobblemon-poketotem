@@ -7,29 +7,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 public class MenuUtilities {
     public static final Item BACKGROUND = Items.GRAY_STAINED_GLASS_PANE;
     public static final Item SEPARATOR = CobblemonItems.PC;
-    public static final Item EMPTY_SLOT = CobblemonItems.POKE_BALL;
-
-    public static final List<Item> MENU_ITEMS = List.of(
-            BACKGROUND,
-            SEPARATOR,
-            EMPTY_SLOT
-    );
-
-    public static boolean isMenuItem(ItemStack item) {
-        AtomicBoolean check = new AtomicBoolean(false);
-        MENU_ITEMS.forEach(menuItem -> {
-            if (item.is(menuItem)) {
-                check.set(true);
-            }
-        });
-        return check.get();
-    }
+    public static final Item POKE_BALL = CobblemonItems.POKE_BALL;
+    public static final Item PAGE_PLACEHOLDER = Items.PAPER;
+    public static final Item NAV_ITEM = Items.ARROW;
 
     public static ItemStack getFrameItem() {
         return new ItemBuilder(BACKGROUND)
@@ -40,15 +23,47 @@ public class MenuUtilities {
     public static ItemStack getSeparatorItem() {
         return new ItemBuilder(SEPARATOR)
                 .hideAdditional()
-                .setCustomName(Component.literal(" "))
+                .setCustomName(Component.literal("Open PC")
+                        .withStyle(style -> style.withColor(ChatFormatting.BLUE))
+                )
                 .build();
     }
 
     public static ItemStack getEmptyItem() {
-        return new ItemBuilder(EMPTY_SLOT)
+        return new ItemBuilder(POKE_BALL)
                 .hideAdditional()
                 .setCustomName(Component.literal("Empty")
                         .withStyle(style -> style.withColor(ChatFormatting.GRAY))
+                )
+                .build();
+    }
+
+    public static ItemStack getPageItem(int currentPage, int pageLength) {
+        return new ItemBuilder(PAGE_PLACEHOLDER)
+                .setCustomName(
+                        Component.literal("Page " + currentPage + "/" + pageLength).withStyle(style -> style.withColor(ChatFormatting.GOLD))
+                )
+                .build();
+    }
+
+    public static ItemStack getNavItem(String label) {
+        return new ItemBuilder(NAV_ITEM)
+                .hideAdditional()
+                .setCustomName(
+                        Component.literal(label)
+                                .withStyle(
+                                        style -> style.withColor(ChatFormatting.AQUA)
+                                )
+                )
+                .build();
+    }
+
+    public static ItemStack getBackToPartyItem() {
+        return new ItemBuilder(POKE_BALL)
+                .hideAdditional()
+                .setCustomName(
+                        Component.literal("Back to party")
+                                .withStyle(style -> style.withColor(ChatFormatting.BLUE))
                 )
                 .build();
     }

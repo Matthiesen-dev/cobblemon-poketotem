@@ -10,7 +10,9 @@ import net.minecraft.server.level.ServerPlayer;
 import xyz.station48.common.cobblemon_poketotem.CobblemonPokeTotem;
 import xyz.station48.common.cobblemon_poketotem.permissions.CobblemonPokeTotemPermissions;
 
-public class TotemToPokeRedeemServer {
+public class TotemToPokeRedeemServer implements ICommand {
+    public TotemToPokeRedeemServer() {}
+
     public void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
                 Commands
@@ -34,7 +36,7 @@ public class TotemToPokeRedeemServer {
         } catch (CommandSyntaxException e) {
             return 0;
         }
-        new TotemToPokeRedeem().shared(target);
+        TotemToPokeRedeem.shared(target);
         return 1;
     }
 }
