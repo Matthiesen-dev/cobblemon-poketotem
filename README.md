@@ -11,7 +11,7 @@ the server-owner has not restricted the permissions for `/totemtopoke` and `/tot
 **Note to map-makers/server-owners:**
 
 If you are planning on creating custom loot rewards using the Totems, it is recommended to use 
-the Cloned PokemonTotems instead of the Normal PokeTotems. 
+the Cloned PokeTotems instead of the Normal PokeTotems. 
 
 ## Requirements
 
