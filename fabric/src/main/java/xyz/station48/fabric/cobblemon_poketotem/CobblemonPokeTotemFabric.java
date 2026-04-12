@@ -21,7 +21,6 @@ public class CobblemonPokeTotemFabric implements ModInitializer {
                 CobblemonPokeTotem.registerCommands(dispatcher)
         );
         ServerLifecycleEvents.SERVER_STOPPING.register(server -> CobblemonPokeTotem.onShutdown());
-        ServerLifecycleEvents.SERVER_STOPPED.register(server -> CobblemonPokeTotem.onShutdown());
     }
 
 }

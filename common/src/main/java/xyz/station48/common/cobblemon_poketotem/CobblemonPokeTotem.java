@@ -22,7 +22,8 @@ public class CobblemonPokeTotem {
     }
 
     public static void onShutdown() {
-        Constants.createInfoLog("Shutting Down");
+        Constants.createInfoLog("Server stopping, shutting down");
+        new ConfigManager().saveConfig();
     }
 
     public static void registerCommands(CommandDispatcher<CommandSourceStack> dispatcher) {
