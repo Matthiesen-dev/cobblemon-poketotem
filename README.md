@@ -8,6 +8,11 @@ Normal PokeTotems keep their UUID and OT data intact, while Clones get new UUIDs
 Note, all versions of PokeTotems can be right-clicked to automatically convert into a Pokemon assuming 
 the server-owner has not restricted the permissions for `/totemtopoke` and `/totemtopoke-redeem`
 
+**Note to map-makers/server-owners:**
+
+If you are planning on creating custom loot rewards using the Totems, it is recommended to use 
+the Cloned PokemonTotems instead of the Normal PokeTotems. 
+
 ## Requirements
 
 - [Cobblemon v1.7.3+](https://modrinth.com/mod/cobblemon/)
