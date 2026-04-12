@@ -1,5 +1,6 @@
 package xyz.station48.fabric.cobblemon_poketotem;
 
+import net.minecraft.server.MinecraftServer;
 import xyz.station48.common.cobblemon_poketotem.CobblemonPokeTotem;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -20,6 +21,10 @@ public class CobblemonPokeTotemFabric implements ModInitializer {
                 ) ->
                 CobblemonPokeTotem.registerCommands(dispatcher)
         );
+        ServerLifecycleEvents.SERVER_STARTING.register(server -> {
+            MinecraftServer runningServer = server.createCommandSourceStack().getServer();
+            CobblemonPokeTotem.onStartup(runningServer);
+        });
         ServerLifecycleEvents.SERVER_STOPPING.register(server -> CobblemonPokeTotem.onShutdown());
     }
 

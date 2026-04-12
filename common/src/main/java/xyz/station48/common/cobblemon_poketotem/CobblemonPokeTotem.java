@@ -2,6 +2,7 @@ package xyz.station48.common.cobblemon_poketotem;
 
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.MinecraftServer;
 import xyz.station48.common.cobblemon_poketotem.commands.*;
 import xyz.station48.common.cobblemon_poketotem.config.CobblemonPokeTotemConfig;
 import xyz.station48.common.cobblemon_poketotem.config.ConfigManager;
@@ -11,6 +12,7 @@ import xyz.station48.common.cobblemon_poketotem.permissions.CobblemonPokeTotemPe
 public class CobblemonPokeTotem {
     public static CobblemonPokeTotemPermissions permissions;
     public static CobblemonPokeTotemConfig config;
+    public static MinecraftServer currentServer;
 
     public static void initialize() {
         Constants.createInfoLog("Initialized");
@@ -19,6 +21,11 @@ public class CobblemonPokeTotem {
 
         // Extend Cobblemon's Molang functions
         PlayerFunctionsExtension.register();
+    }
+
+    public static void onStartup(MinecraftServer server) {
+        Constants.createInfoLog("Server starting, Setting up");
+        currentServer = server;
     }
 
     public static void onShutdown() {
