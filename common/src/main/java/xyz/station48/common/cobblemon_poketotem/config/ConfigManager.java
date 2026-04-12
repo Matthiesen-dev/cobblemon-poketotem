@@ -13,8 +13,6 @@ import java.io.FileWriter;
 public class ConfigManager implements IConfigManager {
     public static CobblemonPokeTotemConfig config;
 
-    public ConfigManager() {}
-
     @Override
     public CobblemonPokeTotemConfig loadConfig() {
         String configFileLoc = System.getProperty("user.dir") + File.separator + "config" +
