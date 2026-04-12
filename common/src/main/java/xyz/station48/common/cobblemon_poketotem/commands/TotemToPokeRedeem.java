@@ -16,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import xyz.station48.common.cobblemon_poketotem.CobblemonPokeTotem;
 import xyz.station48.common.cobblemon_poketotem.Constants;
+import xyz.station48.common.cobblemon_poketotem.interfaces.ICommand;
 import xyz.station48.common.cobblemon_poketotem.permissions.CobblemonPokeTotemPermissions;
 import xyz.station48.common.cobblemon_poketotem.util.PokemonUtility;
 

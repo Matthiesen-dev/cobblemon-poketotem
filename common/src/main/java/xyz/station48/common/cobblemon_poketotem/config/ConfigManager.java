@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import xyz.station48.common.cobblemon_poketotem.Constants;
+import xyz.station48.common.cobblemon_poketotem.interfaces.IConfigManager;
 
 import java.io.File;
 import java.io.FileReader;

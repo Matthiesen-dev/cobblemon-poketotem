@@ -2,6 +2,7 @@ package xyz.station48.common.cobblemon_poketotem.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.commands.CommandSourceStack;
+import xyz.station48.common.cobblemon_poketotem.interfaces.ICommand;
 
 import java.util.List;
 
