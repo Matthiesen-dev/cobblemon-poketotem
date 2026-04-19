@@ -1,4 +1,4 @@
-package xyz.station48.common.cobblemon_poketotem.commands;
+package xyz.station48.common.cobblemon_poketotem.interfaces;
 
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.commands.CommandSourceStack;

@@ -7,6 +7,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.server.level.ServerPlayer;
 import xyz.station48.common.cobblemon_poketotem.CobblemonPokeTotem;
+import xyz.station48.common.cobblemon_poketotem.interfaces.ICommand;
 import xyz.station48.common.cobblemon_poketotem.menu.CPTMainCloneScreen;
 import xyz.station48.common.cobblemon_poketotem.menu.CPTMainScreen;
 import xyz.station48.common.cobblemon_poketotem.permissions.CobblemonPokeTotemPermissions;

@@ -41,32 +41,45 @@ public class PokemonUtility {
         }
     }
 
-    public static ItemStack createCustomPokeTotem(Pokemon pokemon, RegistryAccess registryAccess, Integer slot) {
-        ItemStack initialItem = pokemonToItem(pokemon);
+    private static ItemStack createPokeTotemItem(
+            ItemStack initialItem,
+            Pokemon pokemon,
+            RegistryAccess registryAccess,
+            Integer slot,
+            String nbtTag,
+            String nbtFnData
+    ) {
         CompoundTag pokemonNBT = pokemon.saveToNBT(registryAccess, new CompoundTag());
         CompoundTag customDataTag = new CompoundTag();
-
         customDataTag.putInt("slot", slot);
-        customDataTag.put(Constants.NBTPokemonDataTag, pokemonNBT);
-        customDataTag.putString(Constants.NBTStandardFnTag, Constants.NBTStandardFnData);
-
+        customDataTag.put(nbtTag, pokemonNBT);
+        customDataTag.putString(Constants.NBTStandardFnTag, nbtFnData);
         CustomData customData = CustomData.of(customDataTag);
-
         return new ItemBuilder(initialItem).setCustomData(customData).setFunctionFeature().build();
+    }
+
+    public static ItemStack createCustomPokeTotem(Pokemon pokemon, RegistryAccess registryAccess, Integer slot) {
+        ItemStack initialItem = pokemonToItem(pokemon);
+        return createPokeTotemItem(
+                initialItem,
+                pokemon,
+                registryAccess,
+                slot,
+                Constants.NBTPokemonDataTag,
+                Constants.NBTStandardFnData
+        );
     }
 
     public static ItemStack createCustomPokeTotemClone(Pokemon pokemon, RegistryAccess registryAccess, Integer slot) {
         ItemStack initialItem = pokemonToItemClone(pokemon);
-        CompoundTag pokemonNBT = pokemon.saveToNBT(registryAccess, new CompoundTag());
-        CompoundTag customDataTag = new CompoundTag();
-
-        customDataTag.putInt("slot", slot);
-        customDataTag.put(Constants.NBTCloneDataTag, pokemonNBT);
-        customDataTag.putString(Constants.NBTStandardFnTag, Constants.NBTCloneFnData);
-
-        CustomData customData = CustomData.of(customDataTag);
-
-        return new ItemBuilder(initialItem).setCustomData(customData).setFunctionFeature().build();
+        return createPokeTotemItem(
+                initialItem,
+                pokemon,
+                registryAccess,
+                slot,
+                Constants.NBTCloneDataTag,
+                Constants.NBTCloneFnData
+        );
     }
 
     public static Component[] loreBuilder(Pokemon pokemon) {

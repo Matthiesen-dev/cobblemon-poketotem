@@ -15,6 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import xyz.station48.common.cobblemon_poketotem.CobblemonPokeTotem;
+import xyz.station48.common.cobblemon_poketotem.interfaces.ICommand;
 import xyz.station48.common.cobblemon_poketotem.permissions.CobblemonPokeTotemPermissions;
 import xyz.station48.common.cobblemon_poketotem.util.PokemonUtility;
 
