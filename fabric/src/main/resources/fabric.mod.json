@@ -8,14 +8,14 @@
     "Adam Matthiesen"
   ],
   "contact": {
-    "issues": "https://github.com/Station48XYZ/cobblemon-poketotem/issues",
-    "sources": "https://github.com/Station48XYZ/cobblemon-poketotem"
+    "issues": "https://github.com/Matthiesen-dev/cobblemon-poketotem/issues",
+    "sources": "https://github.com/Matthiesen-dev/cobblemon-poketotem"
   },
   "license": "MIT License",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "xyz.station48.fabric.cobblemon_poketotem.CobblemonPokeTotemFabric"
+      "dev.matthiesen.fabric.cobblemon_poketotem.CobblemonPokeTotemFabric"
     ]
   },
   "depends": {
