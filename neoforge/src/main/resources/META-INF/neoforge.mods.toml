@@ -1,6 +1,6 @@
 modLoader = "javafml"
 loaderVersion = "[1,)"
-issueTrackerURL = "https://github.com/Station48XYZ/cobblemon-poketotem/issues"
+issueTrackerURL = "https://github.com/Matthiesen-dev/cobblemon-poketotem/issues"
 license = "MIT License"
 
 [[mods]]
