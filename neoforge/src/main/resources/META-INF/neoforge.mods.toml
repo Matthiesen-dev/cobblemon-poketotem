@@ -1,16 +1,17 @@
 modLoader = "javafml"
 loaderVersion = "[1,)"
-issueTrackerURL = "https://github.com/Matthiesen-dev/cobblemon-poketotem/issues"
-license = "MIT License"
+issueTrackerURL = "${github_url}/issues"
+license = "${mod_license}"
 
 [[mods]]
 modId = "${mod_id}"
 version = "${version}"
-displayName = "Cobblemon Poketotem (NeoForge)"
-authors = "Adam Matthiesen"
+displayName = "${mod_name}"
+authors = "${mod_author}"
 description = '''
-Server-Side only mod that adds PokeTotems to the game
+${mod_description}
 '''
+#logoFile = ""
 
 [[dependencies.${mod_id}]]
 modId = "minecraft"

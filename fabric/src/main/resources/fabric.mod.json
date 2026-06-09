@@ -2,16 +2,23 @@
   "schemaVersion": 1,
   "id": "${mod_id}",
   "version": "${version}",
-  "name": "Cobblemon Poketotem (Fabric)",
-  "description": "Server-Side only mod that adds PokeTotems to the game",
+  "name": "${mod_name}",
+  "description": "${mod_description}",
   "authors": [
-    "Adam Matthiesen"
+    "${mod_author}"
   ],
   "contact": {
-    "issues": "https://github.com/Matthiesen-dev/cobblemon-poketotem/issues",
-    "sources": "https://github.com/Matthiesen-dev/cobblemon-poketotem"
+    "issues": "${github_url}/issues",
+    "sources": "${github_url}"
   },
-  "license": "MIT License",
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.github_releases": "${github_url}"
+      }
+    }
+  },
+  "license": "${mod_license}",
   "environment": "*",
   "entrypoints": {
     "main": [
