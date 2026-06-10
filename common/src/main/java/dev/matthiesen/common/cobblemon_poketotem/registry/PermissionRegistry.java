@@ -31,8 +31,13 @@ public final class PermissionRegistry {
         public Permission TOTEMTOPOKE_REDEEM_SERVER_PERMISSION = PermissionRegistry.TOTEMTOPOKE_REDEEM_SERVER_PERMISSION;
     }
 
+    public static Permissions PERMISSIONS = null;
+
     public static Permissions getPermissions() {
-        return new Permissions();
+        if (PERMISSIONS == null) {
+            PERMISSIONS = new Permissions();
+        }
+        return PERMISSIONS;
     }
 
     public static void init() {}
