@@ -12,15 +12,15 @@ import java.util.function.Function;
 
 public final class CommandUtils {
     public static int runSharedCommandWithPlayerArg(CommandContext<CommandSourceStack> context, Function<ServerPlayer, Void> sharedFn) {
-        ServerPlayer target;
+        ServerPlayer player;
         try {
-            target = EntityArgument.getPlayer(context, "player");
+            player = EntityArgument.getPlayer(context, "player");
         } catch (CommandSyntaxException e) {
             Constants.createErrorLog("Failed to find target player for poketototem server command", e);
             context.getSource().sendFailure(Component.literal("Failed to find target player."));
             return 0;
         }
-        sharedFn.apply(target);
+        sharedFn.apply(player);
         return 1;
     }
 

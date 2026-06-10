@@ -15,6 +15,7 @@ import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.CobblemonSounds;
 import com.cobblemon.mod.common.api.storage.party.PartyStore;
 import com.cobblemon.mod.common.pokemon.Pokemon;
+import dev.matthiesen.common.matthiesen_lib_api.utility.SoundsPlayer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
@@ -22,7 +23,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import dev.matthiesen.common.cobblemon_poketotem.util.MenuUtilities;
 import dev.matthiesen.common.cobblemon_poketotem.util.PokemonUtility;
-import dev.matthiesen.common.cobblemon_poketotem.util.SoundsPlayer;
 
 import java.util.ArrayList;
 import java.util.List;

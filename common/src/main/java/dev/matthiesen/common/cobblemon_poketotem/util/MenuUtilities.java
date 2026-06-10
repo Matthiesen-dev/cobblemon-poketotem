@@ -15,57 +15,39 @@ public final class MenuUtilities {
     public static final Item PAGE_PLACEHOLDER = Items.PAPER;
     public static final Item NAV_ITEM = Items.ARROW;
 
-    public static ItemStack getFrameItem() {
-        return new ItemBuilder(BACKGROUND)
-                .setCustomName(Component.literal(" "))
+    private static ItemStack builder(Item item, Component name) {
+        return new ItemBuilder(item)
+                .hideAdditional()
+                .setCustomName(name)
                 .build();
+    }
+
+    public static ItemStack getFrameItem() {
+        return builder(BACKGROUND, Component.literal(" "));
     }
 
     public static ItemStack getSeparatorItem() {
-        return new ItemBuilder(SEPARATOR)
-                .hideAdditional()
-                .setCustomName(Component.literal("Open PC")
-                        .withStyle(style -> style.withColor(ChatFormatting.BLUE))
-                )
-                .build();
+        return builder(SEPARATOR, Component.literal("Open PC")
+                .withStyle(style -> style.withColor(ChatFormatting.BLUE)));
     }
 
     public static ItemStack getEmptyItem() {
-        return new ItemBuilder(POKE_BALL)
-                .hideAdditional()
-                .setCustomName(Component.literal("Empty")
-                        .withStyle(style -> style.withColor(ChatFormatting.GRAY))
-                )
-                .build();
+        return builder(POKE_BALL, Component.literal("Empty Slot")
+                .withStyle(style -> style.withColor(ChatFormatting.GRAY)));
     }
 
     public static ItemStack getPageItem(int currentPage, int pageLength) {
-        return new ItemBuilder(PAGE_PLACEHOLDER)
-                .setCustomName(
-                        Component.literal("Page " + currentPage + "/" + pageLength).withStyle(style -> style.withColor(ChatFormatting.GOLD))
-                )
-                .build();
+        return builder(PAGE_PLACEHOLDER, Component.literal("Page " + currentPage + "/" + pageLength)
+                .withStyle(style -> style.withColor(ChatFormatting.GOLD)));
     }
 
     public static ItemStack getNavItem(String label) {
-        return new ItemBuilder(NAV_ITEM)
-                .hideAdditional()
-                .setCustomName(
-                        Component.literal(label)
-                                .withStyle(
-                                        style -> style.withColor(ChatFormatting.AQUA)
-                                )
-                )
-                .build();
+        return builder(NAV_ITEM, Component.literal(label)
+                .withStyle(style -> style.withColor(ChatFormatting.AQUA)));
     }
 
     public static ItemStack getBackToPartyItem() {
-        return new ItemBuilder(POKE_BALL)
-                .hideAdditional()
-                .setCustomName(
-                        Component.literal("Back to party")
-                                .withStyle(style -> style.withColor(ChatFormatting.BLUE))
-                )
-                .build();
+        return builder(POKE_BALL, Component.literal("Back to party")
+                .withStyle(style -> style.withColor(ChatFormatting.BLUE)));
     }
 }

@@ -12,6 +12,7 @@ import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.CobblemonSounds;
 import com.cobblemon.mod.common.api.storage.party.PartyStore;
 import com.cobblemon.mod.common.pokemon.Pokemon;
+import dev.matthiesen.common.matthiesen_lib_api.utility.SoundsPlayer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
@@ -19,7 +20,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import dev.matthiesen.common.cobblemon_poketotem.util.MenuUtilities;
 import dev.matthiesen.common.cobblemon_poketotem.util.PokemonUtility;
-import dev.matthiesen.common.cobblemon_poketotem.util.SoundsPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,9 +60,9 @@ public abstract class CPTPartyScreen {
                     .display(finalItem)
                     .onClick((action) -> {
                         ServerPlayer sender = action.getPlayer();
-                        new SoundsPlayer(CobblemonSounds.POKE_BALL_HIT)
-                                .playIfMatchesRequirements(sender, finalItem.is(MenuUtilities.POKE_BALL));
-
+                        if (finalItem.is(MenuUtilities.POKE_BALL)) {
+                            new SoundsPlayer(CobblemonSounds.POKE_BALL_HIT).play(sender);
+                        }
                         if (!finalItem.is(MenuUtilities.POKE_BALL)) {
                             new SoundsPlayer(CobblemonSounds.POKEDEX_CLICK).play(sender);
                             PokemonUtility.givePlayerPokemonItem(sender, finalItem, storage, pokemon);
