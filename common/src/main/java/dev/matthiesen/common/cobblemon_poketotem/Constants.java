@@ -1,11 +1,14 @@
 package dev.matthiesen.common.cobblemon_poketotem;
 
+import dev.matthiesen.common.cobblemon_poketotem.util.MetricManager;
+import dev.matthiesen.libs.faststats.Token;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public final class Constants {
     public static final String MOD_ID = "cobblemon_poketotem";
     public static final String MOD_NAME = "Cobblemon PokeTotem";
+    public static @Token final String METRICS_TOKEN = "3bef59eaa8edad9d5b767a1400619696";
 
     public static final class NBT {
         public static final String POKEMON_DATA_TAG = "CPT_NBT";
@@ -21,11 +24,8 @@ public final class Constants {
         LOGGER.info(message);
     }
 
-    public static void createErrorLog(String message) {
-        LOGGER.error(message);
-    }
-
     public static void createErrorLog(String message, Throwable throwable) {
+        MetricManager.ERROR_TRACKER.trackError(throwable);
         LOGGER.error(message, throwable);
     }
 }

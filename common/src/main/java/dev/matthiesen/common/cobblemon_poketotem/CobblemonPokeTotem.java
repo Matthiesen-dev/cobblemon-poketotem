@@ -3,6 +3,7 @@ package dev.matthiesen.common.cobblemon_poketotem;
 import dev.matthiesen.common.cobblemon_poketotem.config.PokeTotemConfigManager;
 import dev.matthiesen.common.cobblemon_poketotem.registry.CommandRegistry;
 import dev.matthiesen.common.cobblemon_poketotem.registry.PermissionRegistry;
+import dev.matthiesen.common.cobblemon_poketotem.util.MetricManager;
 import dev.matthiesen.common.matthiesen_lib_api.MatthiesenLibApi;
 import dev.matthiesen.common.matthiesen_lib_api.permission.Permission;
 import net.minecraft.commands.CommandSourceStack;
@@ -14,6 +15,7 @@ public final class CobblemonPokeTotem {
             new PokeTotemConfigManager<>(CobblemonPokeTotemConfig.class, "config");
 
     public static void initialize() {
+        MetricManager.init();
         reloadConfig();
         PermissionRegistry.init();
         CommandRegistry.init();
