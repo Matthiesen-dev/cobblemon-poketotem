@@ -180,22 +180,20 @@ public final class PokemonUtility {
                 pokemon.getSpecies().getTranslatedName().copy().withStyle(ChatFormatting.GRAY);
     }
 
-    public static ItemStack pokemonToItemClone(Pokemon pokemon) {
+    public static ItemStack pokeToItem(Pokemon pokemon, Component customName) {
         return new ItemBuilder(PokemonItem.from(pokemon, 1))
                 .hideAdditional()
                 .addLore(loreBuilder(pokemon))
-                .setCustomName(
-                        customNameBuilder(pokemon)
-                                .append(Component.literal(" Totem").withStyle(ChatFormatting.GRAY))
-                )
+                .setCustomName(customName)
                 .build();
     }
 
+    public static ItemStack pokemonToItemClone(Pokemon pokemon) {
+        return pokeToItem(pokemon, customNameBuilder(pokemon)
+                .append(Component.literal(" Totem").withStyle(ChatFormatting.GRAY)));
+    }
+
     public static ItemStack pokemonToItem(Pokemon pokemon) {
-        return new ItemBuilder(PokemonItem.from(pokemon, 1))
-                .hideAdditional()
-                .addLore(loreBuilder(pokemon))
-                .setCustomName(customNameBuilder(pokemon))
-                .build();
+        return pokeToItem(pokemon, customNameBuilder(pokemon));
     }
 }
