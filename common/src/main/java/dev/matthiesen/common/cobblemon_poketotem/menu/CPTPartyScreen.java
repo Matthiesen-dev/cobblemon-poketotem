@@ -116,7 +116,7 @@ public abstract class CPTPartyScreen {
         return page;
     }
 
-    public static class Main extends CPTPartyScreen {
+    public final static class Main extends CPTPartyScreen {
         public Main(ServerPlayer player) {
             super(player);
         }
@@ -137,7 +137,7 @@ public abstract class CPTPartyScreen {
         }
     }
 
-    public static class Clone extends CPTPartyScreen {
+    public final static class Clone extends CPTPartyScreen {
         public Clone(ServerPlayer player) {
             super(player);
         }

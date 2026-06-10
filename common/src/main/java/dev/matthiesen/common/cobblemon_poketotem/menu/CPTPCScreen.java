@@ -144,7 +144,7 @@ public abstract class CPTPCScreen {
         }
     }
 
-    public static class Main extends CPTPCScreen {
+    public final static class Main extends CPTPCScreen {
         public Main(ServerPlayer player, PartyStore storage) {
             super(player, storage);
         }
@@ -165,7 +165,7 @@ public abstract class CPTPCScreen {
         }
     }
 
-    public static class Clone extends CPTPCScreen {
+    public final static class Clone extends CPTPCScreen {
         public Clone(ServerPlayer player, PartyStore storage) {
             super(player, storage);
         }
