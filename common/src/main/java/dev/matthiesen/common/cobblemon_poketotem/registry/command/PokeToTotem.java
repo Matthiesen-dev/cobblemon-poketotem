@@ -8,8 +8,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import dev.matthiesen.common.cobblemon_poketotem.CobblemonPokeTotem;
-import dev.matthiesen.common.cobblemon_poketotem.menu.CPTMainCloneScreen;
-import dev.matthiesen.common.cobblemon_poketotem.menu.CPTMainScreen;
+import dev.matthiesen.common.cobblemon_poketotem.menu.CPTPartyScreen;
 import dev.matthiesen.common.cobblemon_poketotem.util.CommandUtils;
 import dev.matthiesen.common.cobblemon_poketotem.util.PokemonUtility;
 import dev.matthiesen.common.matthiesen_lib_api.command.AbstractCommand;
@@ -63,14 +62,14 @@ public final class PokeToTotem extends AbstractCommand {
     @Override
     public int action(CommandContext<CommandSourceStack> context) {
         return CommandUtils.runSharedCommandSelfPlayer(context, (serverPlayer -> {
-            UIManager.openUIForcefully(serverPlayer, new CPTMainScreen(serverPlayer).getPage());
+            UIManager.openUIForcefully(serverPlayer, new CPTPartyScreen.Main(serverPlayer).getPage());
             return null;
         }));
     }
 
     public int clone(CommandContext<CommandSourceStack> context) {
         return CommandUtils.runSharedCommandSelfPlayer(context, (serverPlayer -> {
-            UIManager.openUIForcefully(serverPlayer, new CPTMainCloneScreen(serverPlayer).getPage());
+            UIManager.openUIForcefully(serverPlayer, new CPTPartyScreen.Clone(serverPlayer).getPage());
             return null;
         }));
     }
