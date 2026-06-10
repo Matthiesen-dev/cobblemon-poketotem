@@ -5,9 +5,9 @@ import com.cobblemon.mod.common.api.storage.party.PartyStore;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import dev.matthiesen.common.cobblemon_poketotem.CobblemonPokeTotem;
 import dev.matthiesen.common.cobblemon_poketotem.Constants;
+import dev.matthiesen.common.cobblemon_poketotem.util.CommandUtils;
 import dev.matthiesen.common.cobblemon_poketotem.util.PokemonUtility;
 import dev.matthiesen.common.matthiesen_lib_api.command.AbstractCommand;
 import net.minecraft.commands.CommandBuildContext;
@@ -52,7 +52,7 @@ public final class TotemToPoke extends AbstractCommand {
         );
     }
 
-    private static void shared(ServerPlayer target) {
+    public Void shared(ServerPlayer target) {
         ItemStack item = target.getMainHandItem();
 
         // Make sure the item has CustomData
@@ -60,14 +60,14 @@ public final class TotemToPoke extends AbstractCommand {
         if (customData != null) {
             CompoundTag tag = customData.copyTag();
 
-            if (tag.contains(Constants.NBTCloneDataTag)) {
+            if (tag.contains(Constants.NBT.CLONE_DATA_TAG)) {
                 target.displayClientMessage(Component.literal("[§c§lCobblemonPokeTotem§f] §c§lYou are holding a Totem that requires the '/totemtopoke-redeem' command!"), false);
-                return;
+                return null;
             }
 
             // Check if it has a "pokemon" tag
-            if (tag.contains(Constants.NBTPokemonDataTag)) {
-                CompoundTag pokemonTag = tag.getCompound(Constants.NBTPokemonDataTag);
+            if (tag.contains(Constants.NBT.POKEMON_DATA_TAG)) {
+                CompoundTag pokemonTag = tag.getCompound(Constants.NBT.POKEMON_DATA_TAG);
                 var registryAccess = target.level().registryAccess();
                 Pokemon pokemon = PokemonUtility.createPokemonFromNBT(registryAccess, pokemonTag);
 
@@ -99,26 +99,15 @@ public final class TotemToPoke extends AbstractCommand {
                     false
             );
         }
+        return null;
     }
 
     @Override
     public int action(CommandContext<CommandSourceStack> context) {
-        ServerPlayer target = context.getSource().getPlayer();
-        if (target == null) {
-            return 0;
-        }
-        shared(target);
-        return 1;
+        return CommandUtils.runSharedCommandSelfPlayer(context, this::shared);
     }
 
     public int server(CommandContext<CommandSourceStack> context) {
-        ServerPlayer target;
-        try {
-            target = EntityArgument.getPlayer(context, "player");
-        } catch (CommandSyntaxException e) {
-            return 0;
-        }
-        shared(target);
-        return 1;
+        return CommandUtils.runSharedCommandWithPlayerArg(context, this::shared);
     }
 }

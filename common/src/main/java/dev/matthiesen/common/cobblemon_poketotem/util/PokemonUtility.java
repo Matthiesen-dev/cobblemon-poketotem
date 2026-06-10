@@ -54,7 +54,7 @@ public final class PokemonUtility {
         CompoundTag customDataTag = new CompoundTag();
         customDataTag.putInt("slot", slot);
         customDataTag.put(nbtTag, pokemonNBT);
-        customDataTag.putString(Constants.NBTStandardFnTag, nbtFnData);
+        customDataTag.putString(Constants.NBT.STANDARD_FN_TAG, nbtFnData);
         CustomData customData = CustomData.of(customDataTag);
         var item = new ItemBuilder(initialItem).setCustomData(customData).build();
         return CustomFoodBuilder.setFunctionFeature(item);
@@ -67,8 +67,8 @@ public final class PokemonUtility {
                 pokemon,
                 registryAccess,
                 slot,
-                Constants.NBTPokemonDataTag,
-                Constants.NBTStandardFnData
+                Constants.NBT.POKEMON_DATA_TAG,
+                Constants.NBT.STANDARD_FN_DATA
         );
     }
 
@@ -79,8 +79,8 @@ public final class PokemonUtility {
                 pokemon,
                 registryAccess,
                 slot,
-                Constants.NBTCloneDataTag,
-                Constants.NBTCloneFnData
+                Constants.NBT.CLONE_DATA_TAG,
+                Constants.NBT.CLONE_FN_DATA
         );
     }
 

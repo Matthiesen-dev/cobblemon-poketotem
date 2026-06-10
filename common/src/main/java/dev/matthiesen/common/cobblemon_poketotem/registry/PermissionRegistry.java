@@ -65,7 +65,7 @@ public final class PermissionRegistry {
         return new AbstractPermission(node, level) {
             @Override
             protected String getModId() {
-                return Constants.ModId;
+                return Constants.MOD_ID;
             }
 
             @Override

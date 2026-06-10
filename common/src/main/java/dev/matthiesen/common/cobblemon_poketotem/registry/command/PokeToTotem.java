@@ -1,17 +1,16 @@
 package dev.matthiesen.common.cobblemon_poketotem.registry.command;
 
 import ca.landonjw.gooeylibs2.api.UIManager;
-import ca.landonjw.gooeylibs2.api.page.Page;
 import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.api.storage.party.PartyStore;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import dev.matthiesen.common.cobblemon_poketotem.CobblemonPokeTotem;
 import dev.matthiesen.common.cobblemon_poketotem.menu.CPTMainCloneScreen;
 import dev.matthiesen.common.cobblemon_poketotem.menu.CPTMainScreen;
+import dev.matthiesen.common.cobblemon_poketotem.util.CommandUtils;
 import dev.matthiesen.common.cobblemon_poketotem.util.PokemonUtility;
 import dev.matthiesen.common.matthiesen_lib_api.command.AbstractCommand;
 import net.minecraft.commands.CommandBuildContext;
@@ -22,8 +21,6 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-
-import java.util.function.Function;
 
 /**
  * Command Structure:
@@ -65,66 +62,51 @@ public final class PokeToTotem extends AbstractCommand {
 
     @Override
     public int action(CommandContext<CommandSourceStack> context) {
-        runPlayer(context, player -> new CPTMainScreen(player).getPage());
-        return 1;
+        return CommandUtils.runSharedCommandSelfPlayer(context, (serverPlayer -> {
+            UIManager.openUIForcefully(serverPlayer, new CPTMainScreen(serverPlayer).getPage());
+            return null;
+        }));
     }
 
     public int clone(CommandContext<CommandSourceStack> context) {
-        runPlayer(context, (player) -> new CPTMainCloneScreen(player).getPage());
-        return 1;
-    }
-
-    private void runPlayer(CommandContext<CommandSourceStack> context, Function<ServerPlayer, Page> pageFunction) {
-        if (context.getSource().getPlayer() != null) {
-            ServerPlayer player = context.getSource().getPlayer();
-            UIManager.openUIForcefully(player, pageFunction.apply(player));
-        }
+        return CommandUtils.runSharedCommandSelfPlayer(context, (serverPlayer -> {
+            UIManager.openUIForcefully(serverPlayer, new CPTMainCloneScreen(serverPlayer).getPage());
+            return null;
+        }));
     }
 
     public int server(CommandContext<CommandSourceStack> context) {
         ServerPlayer senderPlayer = context.getSource().getPlayer();
-        if (senderPlayer == null) {
-            return 0;
-        }
+        if (senderPlayer == null) return 0;
+        return CommandUtils.runSharedCommandWithPlayerArg(context, (targetPlayer -> {
+            int slot = IntegerArgumentType.getInteger(context, "slot");
+            ServerPlayer[] needToMessage = { senderPlayer, targetPlayer };
 
-        ServerPlayer targetPlayer;
-        int slot = IntegerArgumentType.getInteger(context, "slot");
+            PartyStore storage = Cobblemon.INSTANCE.getStorage().getParty(targetPlayer);
+            Pokemon pokemon = storage.get(slot);
 
-        try {
-            targetPlayer = EntityArgument.getPlayer(context, "player");
-        } catch (CommandSyntaxException e) {
-            throw new RuntimeException(e);
-        }
+            if (pokemon != null) {
+                RegistryAccess registryAccess = targetPlayer.level().registryAccess();
 
-        ServerPlayer[] needToMessage = {
-                senderPlayer,
-                targetPlayer
-        };
+                ItemStack pokemonItem = PokemonUtility.createCustomPokeTotem(pokemon, registryAccess, slot);
 
-        PartyStore storage = Cobblemon.INSTANCE.getStorage().getParty(targetPlayer);
-        Pokemon pokemon = storage.get(slot);
+                PokemonUtility.givePlayerPokemonItem(targetPlayer, pokemonItem, storage, pokemon);
 
-        if (pokemon != null) {
-            RegistryAccess registryAccess = targetPlayer.level().registryAccess();
-
-            ItemStack pokemonItem = PokemonUtility.createCustomPokeTotem(pokemon, registryAccess, slot);
-
-            PokemonUtility.givePlayerPokemonItem(targetPlayer, pokemonItem, storage, pokemon);
-
-            for (ServerPlayer tPlayer : needToMessage) {
-                tPlayer.displayClientMessage(
-                        Component.literal("[§c§lCobblemonPokeTotem§f] §a§lPokémon has been converted to a Totem!"),
-                        false
-                );
+                for (ServerPlayer tPlayer : needToMessage) {
+                    tPlayer.displayClientMessage(
+                            Component.literal("[§c§lCobblemonPokeTotem§f] §a§lPokémon has been converted to a Totem!"),
+                            false
+                    );
+                }
+            } else {
+                for (ServerPlayer tPlayer : needToMessage) {
+                    tPlayer.displayClientMessage(
+                            Component.literal("[§c§lCobblemonPokeTotem§f] §c§lFailed to convert slot: " + slot)
+                            , false
+                    );
+                }
             }
-        } else {
-            for (ServerPlayer tPlayer : needToMessage) {
-                tPlayer.displayClientMessage(
-                        Component.literal("[§c§lCobblemonPokeTotem§f] §c§lFailed to convert slot: " + slot)
-                        , false
-                );
-            }
-        }
-        return 1;
+            return null;
+        }));
     }
 }

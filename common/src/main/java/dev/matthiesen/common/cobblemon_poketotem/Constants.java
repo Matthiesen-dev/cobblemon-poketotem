@@ -4,15 +4,18 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public final class Constants {
-    public static final String ModId = "cobblemon_poketotem";
-    public static final String ModName = "Cobblemon PokeTotem";
-    public static final String NBTPokemonDataTag = "CPT_NBT";
-    public static final String NBTStandardFnTag = "CPT_FN";
-    public static final String NBTStandardFnData = "cpt-poke-totem-fn";
-    public static final String NBTCloneDataTag = "CPT_CLONE_NBT";
-    public static final String NBTCloneFnData = "cpt-poke-totem-clone-fn";
+    public static final String MOD_ID = "cobblemon_poketotem";
+    public static final String MOD_NAME = "Cobblemon PokeTotem";
 
-    public static Logger LOGGER = LogManager.getLogger(ModName);
+    public static final class NBT {
+        public static final String POKEMON_DATA_TAG = "CPT_NBT";
+        public static final String STANDARD_FN_TAG = "CPT_FN";
+        public static final String STANDARD_FN_DATA = "cpt-poke-totem-fn";
+        public static final String CLONE_DATA_TAG = "CPT_CLONE_NBT";
+        public static final String CLONE_FN_DATA = "cpt-poke-totem-clone-fn";
+    }
+
+    public static Logger LOGGER = LogManager.getLogger(MOD_NAME);
 
     public static void createInfoLog(String message) {
         LOGGER.info(message);

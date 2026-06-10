@@ -22,7 +22,7 @@ public final class CobblemonPokeTotem {
         PlayerFunctionsExtension.register();
 
         // Event Listener registration
-        MatthiesenLibApi.registerReloadRunnable(Constants.ModId, CobblemonPokeTotem::reloadConfig);
+        MatthiesenLibApi.registerReloadRunnable(Constants.MOD_ID, CobblemonPokeTotem::reloadConfig);
 
         Constants.createInfoLog("Initialized");
     }
