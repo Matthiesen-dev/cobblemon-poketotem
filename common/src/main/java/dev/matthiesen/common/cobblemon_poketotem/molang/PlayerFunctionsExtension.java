@@ -14,7 +14,7 @@ import dev.matthiesen.common.cobblemon_poketotem.util.PokemonUtility;
 import java.util.HashMap;
 import java.util.function.Function;
 
-public class PlayerFunctionsExtension {
+public final class PlayerFunctionsExtension {
     public static void register() {
         Constants.createInfoLog("Registering Cobblemon Molang Player function extensions");
 

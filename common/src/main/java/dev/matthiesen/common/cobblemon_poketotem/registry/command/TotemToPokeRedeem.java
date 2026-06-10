@@ -1,12 +1,19 @@
-package dev.matthiesen.common.cobblemon_poketotem.commands;
+package dev.matthiesen.common.cobblemon_poketotem.registry.command;
 
 import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.api.storage.party.PartyStore;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import dev.matthiesen.common.cobblemon_poketotem.CobblemonPokeTotem;
+import dev.matthiesen.common.cobblemon_poketotem.Constants;
+import dev.matthiesen.common.cobblemon_poketotem.util.PokemonUtility;
+import dev.matthiesen.common.matthiesen_lib_api.command.AbstractCommand;
+import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -14,23 +21,35 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
-import dev.matthiesen.common.cobblemon_poketotem.CobblemonPokeTotem;
-import dev.matthiesen.common.cobblemon_poketotem.Constants;
-import dev.matthiesen.common.cobblemon_poketotem.interfaces.ICommand;
-import dev.matthiesen.common.cobblemon_poketotem.permissions.CobblemonPokeTotemPermissions;
-import dev.matthiesen.common.cobblemon_poketotem.util.PokemonUtility;
 
-public class TotemToPokeRedeem implements ICommand {
-    public TotemToPokeRedeem() {}
+/**
+ * Command Structure:
+ * - /totemtopoke-redeem
+ * - /totemtopoke-redeem server [player]
+ */
+public final class TotemToPokeRedeem extends AbstractCommand {
+    public static final TotemToPokeRedeem CMD = new TotemToPokeRedeem();
 
-    public void register(CommandDispatcher<CommandSourceStack> dispatcher) {
+    @Override
+    public void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext registry, Commands.CommandSelection context) {
+        var permissions = CobblemonPokeTotem.getPermissions();
         dispatcher.register(
                 Commands.literal("totemtopoke-redeem")
-                        .requires(src -> CobblemonPokeTotemPermissions.checkPermission(
-                                src,
-                                CobblemonPokeTotem.permissions.TOTEMTOPOKE_REDEEM_PERMISSION
+                        .requires(src -> CobblemonPokeTotem.checkPermission(
+                                src, permissions.TOTEMTOPOKE_REDEEM_PERMISSION
                         ))
-                        .executes(this::runner)
+                        .executes(this::action)
+                        .then(
+                                Commands.literal("server")
+                                        .requires(
+                                                src -> CobblemonPokeTotem.checkPermission(
+                                                        src, permissions.TOTEMTOPOKE_REDEEM_SERVER_PERMISSION
+                                                ))
+                                        .then(
+                                                Commands.argument("player", EntityArgument.player())
+                                                        .executes(this::server)
+                                        )
+                        )
         );
     }
 
@@ -83,9 +102,21 @@ public class TotemToPokeRedeem implements ICommand {
         }
     }
 
-    private int runner(CommandContext<CommandSourceStack> ctx) {
-        ServerPlayer target = ctx.getSource().getPlayer();
+    @Override
+    public int action(CommandContext<CommandSourceStack> context) {
+        ServerPlayer target = context.getSource().getPlayer();
         if (target == null) {
+            return 0;
+        }
+        shared(target);
+        return 1;
+    }
+
+    public int server(CommandContext<CommandSourceStack> context) {
+        ServerPlayer target;
+        try {
+            target = EntityArgument.getPlayer(context, "player");
+        } catch (CommandSyntaxException e) {
             return 0;
         }
         shared(target);

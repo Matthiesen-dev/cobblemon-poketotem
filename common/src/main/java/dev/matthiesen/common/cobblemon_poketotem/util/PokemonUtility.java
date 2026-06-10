@@ -6,6 +6,7 @@ import com.cobblemon.mod.common.api.storage.party.PartyStore;
 import com.cobblemon.mod.common.item.PokemonItem;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.cobblemon.mod.common.util.LocalizationUtilsKt;
+import dev.matthiesen.common.matthiesen_lib_api.utility.ItemBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
@@ -19,7 +20,7 @@ import dev.matthiesen.common.cobblemon_poketotem.Constants;
 
 import java.util.Objects;
 
-public class PokemonUtility {
+public final class PokemonUtility {
     public static Pokemon createPokemonFromNBT(RegistryAccess registryAccess, CompoundTag nbt) {
         Pokemon pokemon = new Pokemon();
         return pokemon.loadFromNBT(registryAccess, nbt);
@@ -55,7 +56,8 @@ public class PokemonUtility {
         customDataTag.put(nbtTag, pokemonNBT);
         customDataTag.putString(Constants.NBTStandardFnTag, nbtFnData);
         CustomData customData = CustomData.of(customDataTag);
-        return new ItemBuilder(initialItem).setCustomData(customData).setFunctionFeature().build();
+        var item = new ItemBuilder(initialItem).setCustomData(customData).build();
+        return CustomFoodBuilder.setFunctionFeature(item);
     }
 
     public static ItemStack createCustomPokeTotem(Pokemon pokemon, RegistryAccess registryAccess, Integer slot) {

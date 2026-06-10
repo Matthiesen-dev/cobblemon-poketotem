@@ -6,8 +6,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import dev.matthiesen.common.matthiesen_lib_api.utility.ItemBuilder;
 
-public class MenuUtilities {
+public final class MenuUtilities {
     public static final Item BACKGROUND = Items.GRAY_STAINED_GLASS_PANE;
     public static final Item SEPARATOR = CobblemonItems.PC;
     public static final Item POKE_BALL = CobblemonItems.POKE_BALL;
