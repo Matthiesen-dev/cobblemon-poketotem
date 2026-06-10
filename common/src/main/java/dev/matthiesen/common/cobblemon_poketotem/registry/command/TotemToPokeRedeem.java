@@ -4,9 +4,11 @@ import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.api.storage.party.PartyStore;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import dev.matthiesen.common.cobblemon_poketotem.CobblemonPokeTotem;
 import dev.matthiesen.common.cobblemon_poketotem.Constants;
+import dev.matthiesen.common.cobblemon_poketotem.registry.PermissionRegistry;
 import dev.matthiesen.common.cobblemon_poketotem.util.CommandUtils;
 import dev.matthiesen.common.cobblemon_poketotem.util.PokemonUtility;
 import dev.matthiesen.common.matthiesen_lib_api.command.AbstractCommand;
@@ -39,18 +41,20 @@ public final class TotemToPokeRedeem extends AbstractCommand {
                                 src, permissions.TOTEMTOPOKE_REDEEM_PERMISSION
                         ))
                         .executes(this::action)
-                        .then(
-                                Commands.literal("server")
-                                        .requires(
-                                                src -> CobblemonPokeTotem.checkPermission(
-                                                        src, permissions.TOTEMTOPOKE_REDEEM_SERVER_PERMISSION
-                                                ))
-                                        .then(
-                                                Commands.argument("player", EntityArgument.player())
-                                                        .executes(this::server)
-                                        )
-                        )
+                        .then(serverSubCMD(permissions))
         );
+    }
+
+    public LiteralArgumentBuilder<CommandSourceStack> serverSubCMD(PermissionRegistry.Permissions permissions) {
+        return Commands.literal("server")
+                .requires(
+                        src -> CobblemonPokeTotem.checkPermission(
+                                src, permissions.TOTEMTOPOKE_REDEEM_SERVER_PERMISSION
+                        ))
+                .then(
+                        Commands.argument("player", EntityArgument.player())
+                                .executes(this::server)
+                );
     }
 
     public Void shared(ServerPlayer target) {

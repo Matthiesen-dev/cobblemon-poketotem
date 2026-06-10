@@ -21,18 +21,16 @@ public final class PlayerFunctionsExtension {
         MoLangFunctions.INSTANCE.getPlayerFunctions().add(player -> {
             HashMap<String, Function<MoParams, Object>> map = new HashMap<>();
 
-            // q.player.poketototem(<slot_number>)
+            // q.player.poketototem(<slot_number 0-5>)
             map.put("poketototem", params -> {
                 int slot = params.getInt(0);
 
                 // Get pokemon from player's Party
                 PartyStore storage = Cobblemon.INSTANCE.getStorage().getParty((ServerPlayer) player);
+                RegistryAccess registryAccess = player.level().registryAccess();
                 Pokemon pokemon = storage.get(slot);
 
-                // Convert to an Item
-                RegistryAccess registryAccess = player.level().registryAccess();
-
-                // Give player the item if pokemon is not null
+                // Convert and give player the totem item if pokemon is not null
                 if (pokemon != null) {
                     ItemStack pokemonItem = PokemonUtility.createCustomPokeTotem(pokemon, registryAccess, slot);
                     PokemonUtility.givePlayerPokemonItem((ServerPlayer) player, pokemonItem, storage, pokemon);

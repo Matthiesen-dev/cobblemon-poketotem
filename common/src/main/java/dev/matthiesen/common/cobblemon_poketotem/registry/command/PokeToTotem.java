@@ -6,9 +6,11 @@ import com.cobblemon.mod.common.api.storage.party.PartyStore;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import dev.matthiesen.common.cobblemon_poketotem.CobblemonPokeTotem;
 import dev.matthiesen.common.cobblemon_poketotem.menu.CPTPartyScreen;
+import dev.matthiesen.common.cobblemon_poketotem.registry.PermissionRegistry;
 import dev.matthiesen.common.cobblemon_poketotem.util.CommandUtils;
 import dev.matthiesen.common.cobblemon_poketotem.util.PokemonUtility;
 import dev.matthiesen.common.matthiesen_lib_api.command.AbstractCommand;
@@ -39,24 +41,27 @@ public final class PokeToTotem extends AbstractCommand {
                                 src, permissions.POKETOTOTEM_PERMISSION
                         ))
                         .executes(this::action)
-                        .then(
-                                Commands.literal("clone")
-                                        .executes(this::clone)
-                        )
-                        .then(
-                                Commands.literal("server")
-                                        .requires(src -> CobblemonPokeTotem.checkPermission(
-                                                src, permissions.POKETOTOTEM_SERVER_PERMISSION
-                                        ))
-                                        .then(
-                                                Commands.argument("player", EntityArgument.player())
-                                                        .then(
-                                                                Commands.argument("slot", IntegerArgumentType.integer(0, 5))
-                                                                        .executes(this::server)
-                                                        )
-                                        )
-                        )
+                        .then(cloneSubCMD())
+                        .then(serverSubCMD(permissions))
         );
+    }
+
+    public LiteralArgumentBuilder<CommandSourceStack> cloneSubCMD() {
+        return Commands.literal("clone").executes(this::clone);
+    }
+
+    public LiteralArgumentBuilder<CommandSourceStack> serverSubCMD(PermissionRegistry.Permissions permissions) {
+        return Commands.literal("server")
+                .requires(src -> CobblemonPokeTotem.checkPermission(
+                        src, permissions.POKETOTOTEM_SERVER_PERMISSION
+                ))
+                .then(
+                        Commands.argument("player", EntityArgument.player())
+                                .then(
+                                        Commands.argument("slot", IntegerArgumentType.integer(0, 5))
+                                                .executes(this::server)
+                                )
+                );
     }
 
     @Override
