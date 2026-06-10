@@ -37,7 +37,6 @@ public final class PokeToTotem extends AbstractCommand {
     @Override
     public void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext registry, Commands.CommandSelection context) {
         var permissions = CobblemonPokeTotem.getPermissions();
-
         dispatcher.register(
                 Commands.literal("poketototem")
                         .requires(src -> CobblemonPokeTotem.checkPermission(
