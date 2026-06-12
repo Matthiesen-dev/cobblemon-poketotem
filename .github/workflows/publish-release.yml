@@ -2,7 +2,6 @@ name: Publish Release to Modrinth
 
 # Minimum Required Secrets:
 # - MODRINTH_TOKEN (Modrinth API token with permissions to create versions)
-# - MODRINTH_ID (The ID of the Modrinth project to publish to)
 # - DISCORD_WEBHOOK_URL (The URL of the Discord webhook to send notifications to)
 
 on:
@@ -25,7 +24,7 @@ jobs:
       fabric_loader_version: "0.17.2+"
       neoforge_loader_version: "21.1.182+"
       modrinth_game_version: "1.21.1"
-      modrinth_id: ${{ secrets.MODRINTH_ID }}
+      modrinth_id: "ppt4JYjT"
       modrinth_dependencies: |-
         [
           {"project_id":"MdwFAVRL","dependency_type":"required"},
