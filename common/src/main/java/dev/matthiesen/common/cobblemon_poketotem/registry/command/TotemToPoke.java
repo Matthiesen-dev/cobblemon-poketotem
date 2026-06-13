@@ -16,6 +16,7 @@ import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -33,6 +34,11 @@ import net.minecraft.world.item.component.CustomData;
  */
 public final class TotemToPoke extends AbstractCommand {
     public static final TotemToPoke CMD = new TotemToPoke();
+
+    @FunctionalInterface
+    private interface PokemonFactory {
+        Pokemon create(RegistryAccess registryAccess, CompoundTag pokemonTag, ServerPlayer target);
+    }
 
     @Override
     public void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext registry, Commands.CommandSelection context) {
@@ -81,56 +87,38 @@ public final class TotemToPoke extends AbstractCommand {
     }
 
     public Void shared(ServerPlayer target) {
-        ItemStack item = target.getMainHandItem();
-
-        // Make sure the item has CustomData
-        CustomData customData = item.get(DataComponents.CUSTOM_DATA);
-        if (customData != null) {
-            CompoundTag tag = customData.copyTag();
-
-            if (tag.contains(Constants.NBT.CLONE_DATA_TAG)) {
-                target.displayClientMessage(Component.literal("[§c§lCobblemonPokeTotem§f] §c§lYou are holding a Totem that requires the '/totemtopoke-redeem' command!"), false);
-                return null;
-            }
-
-            // Check if it has a "pokemon" tag
-            if (tag.contains(Constants.NBT.POKEMON_DATA_TAG)) {
-                CompoundTag pokemonTag = tag.getCompound(Constants.NBT.POKEMON_DATA_TAG);
-                var registryAccess = target.level().registryAccess();
-                Pokemon pokemon = PokemonUtility.createPokemonFromNBT(registryAccess, pokemonTag);
-
-                // Add to party
-                PartyStore party = Cobblemon.INSTANCE.getStorage().getParty(target);
-                boolean added = party.add(pokemon);
-
-                if (added) {
-                    target.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
-                    target.displayClientMessage(
-                            Component.literal("[§c§lCobblemonPokeTotem§f] §a§lPokémon restored to your party or PC!"),
-                            false
-                    );
-                } else {
-                    target.displayClientMessage(
-                            Component.literal("[§c§lCobblemonPokeTotem§f] §a§lPokémon failed to restore!"),
-                            false
-                    );
-                }
-            } else {
-                target.displayClientMessage(
-                        Component.literal("[§c§lCobblemonPokeTotem§f] §4§lThis item does not contain a Pokémon."),
-                        false
-                );
-            }
-        } else {
-            target.displayClientMessage(
-                    Component.literal("[§c§lCobblemonPokeTotem§f] §4§lNo Pokémon data found on this item."),
-                    false
-            );
-        }
-        return null;
+        return processTotem(
+                target,
+                Constants.NBT.CLONE_DATA_TAG,
+                Constants.NBT.POKEMON_DATA_TAG,
+                "[§c§lCobblemonPokeTotem§f] §c§lYou are holding a Totem that requires the '/totemtopoke-redeem' command!",
+                (registryAccess, pokemonTag, ignoredTarget) -> PokemonUtility.createPokemonFromNBT(registryAccess, pokemonTag),
+                "[§c§lCobblemonPokeTotem§f] §a§lPokémon restored to your party or PC!",
+                "[§c§lCobblemonPokeTotem§f] §a§lPokémon failed to restore!"
+        );
     }
 
     public Void sharedRedeem(ServerPlayer target) {
+        return processTotem(
+                target,
+                Constants.NBT.POKEMON_DATA_TAG,
+                Constants.NBT.CLONE_DATA_TAG,
+                "[§c§lCobblemonPokeTotem§f] §c§lYou are holding a Totem that requires the '/totemtopoke' command!",
+                PokemonUtility::clonePokemonNBT,
+                "[§c§lCobblemonPokeTotem§f] §a§lPokémon added to your party or PC!",
+                "[§c§lCobblemonPokeTotem§f] §a§lPokémon failed to add!"
+        );
+    }
+
+    private Void processTotem(
+            ServerPlayer target,
+            String blockedTag,
+            String pokemonDataTag,
+            String blockedTagMessage,
+            PokemonFactory pokemonFactory,
+            String successMessage,
+            String failureMessage
+    ) {
         ItemStack item = target.getMainHandItem();
 
         // Make sure the item has CustomData
@@ -138,16 +126,16 @@ public final class TotemToPoke extends AbstractCommand {
         if (customData != null) {
             CompoundTag tag = customData.copyTag();
 
-            if (tag.contains(Constants.NBT.POKEMON_DATA_TAG)) {
-                target.displayClientMessage(Component.literal("[§c§lCobblemonPokeTotem§f] §c§lYou are holding a Totem that requires the '/totemtopoke' command!"), false);
+            if (tag.contains(blockedTag)) {
+                target.displayClientMessage(Component.literal(blockedTagMessage), false);
                 return null;
             }
 
             // Check if it has a "pokemon" tag
-            if (tag.contains(Constants.NBT.CLONE_DATA_TAG)) {
-                CompoundTag pokemonTag = tag.getCompound(Constants.NBT.CLONE_DATA_TAG);
+            if (tag.contains(pokemonDataTag)) {
+                CompoundTag pokemonTag = tag.getCompound(pokemonDataTag);
                 var registryAccess = target.level().registryAccess();
-                Pokemon pokemon = PokemonUtility.clonePokemonNBT(registryAccess, pokemonTag, target);
+                Pokemon pokemon = pokemonFactory.create(registryAccess, pokemonTag, target);
 
                 // Add to party
                 PartyStore party = Cobblemon.INSTANCE.getStorage().getParty(target);
@@ -156,12 +144,12 @@ public final class TotemToPoke extends AbstractCommand {
                 if (added) {
                     target.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
                     target.displayClientMessage(
-                            Component.literal("[§c§lCobblemonPokeTotem§f] §a§lPokémon added to your party or PC!"),
+                            Component.literal(successMessage),
                             false
                     );
                 } else {
                     target.displayClientMessage(
-                            Component.literal("[§c§lCobblemonPokeTotem§f] §a§lPokémon failed to add!"),
+                            Component.literal(failureMessage),
                             false
                     );
                 }
