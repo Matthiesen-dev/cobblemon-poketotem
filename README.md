@@ -12,7 +12,7 @@ There is two versions of PokeTotems, Normal and Clones.
 Normal PokeTotems keep their UUID and OT data intact, while Clones get new UUIDs and OTs assigned.
 
 Note, all versions of PokeTotems can be right-clicked to automatically convert into a Pokemon assuming 
-the server-owner has not restricted the permissions for `/totemtopoke` and `/totemtopoke-redeem`
+the server-owner has not restricted the permissions for `/totemtopoke` and `/totemtopoke redeem`
 
 **Note to map-makers/server-owners:**
 
