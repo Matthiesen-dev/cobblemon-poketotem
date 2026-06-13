@@ -27,6 +27,8 @@ import net.minecraft.world.item.component.CustomData;
 /**
  * Command Structure:
  * - /totemtopoke
+ * - /totemtopoke redeem
+ * - /totemtopoke redeem server [player]
  * - /totemtopoke server [player]
  */
 public final class TotemToPoke extends AbstractCommand {
@@ -42,7 +44,29 @@ public final class TotemToPoke extends AbstractCommand {
                         ))
                         .executes(this::action)
                         .then(serverSubCMD(permissions))
+                        .then(redeemSubCMD(permissions))
         );
+    }
+
+    public LiteralArgumentBuilder<CommandSourceStack> redeemSubCMD(PermissionRegistry.Permissions permissions) {
+        return Commands.literal("redeem")
+                .requires(src -> CobblemonPokeTotem.checkPermission(
+                        src, permissions.TOTEMTOPOKE_REDEEM_PERMISSION
+                ))
+                .executes(this::redeemAction)
+                .then(redeemServerSubCMD(permissions));
+    }
+
+    public LiteralArgumentBuilder<CommandSourceStack> redeemServerSubCMD(PermissionRegistry.Permissions permissions) {
+        return Commands.literal("server")
+                .requires(
+                        src -> CobblemonPokeTotem.checkPermission(
+                                src, permissions.TOTEMTOPOKE_REDEEM_SERVER_PERMISSION
+                        ))
+                .then(
+                        Commands.argument("player", EntityArgument.player())
+                                .executes(this::redeemServer)
+                );
     }
 
     public LiteralArgumentBuilder<CommandSourceStack> serverSubCMD(PermissionRegistry.Permissions permissions) {
@@ -106,6 +130,56 @@ public final class TotemToPoke extends AbstractCommand {
         return null;
     }
 
+    public Void sharedRedeem(ServerPlayer target) {
+        ItemStack item = target.getMainHandItem();
+
+        // Make sure the item has CustomData
+        CustomData customData = item.get(DataComponents.CUSTOM_DATA);
+        if (customData != null) {
+            CompoundTag tag = customData.copyTag();
+
+            if (tag.contains(Constants.NBT.POKEMON_DATA_TAG)) {
+                target.displayClientMessage(Component.literal("[§c§lCobblemonPokeTotem§f] §c§lYou are holding a Totem that requires the '/totemtopoke' command!"), false);
+                return null;
+            }
+
+            // Check if it has a "pokemon" tag
+            if (tag.contains(Constants.NBT.CLONE_DATA_TAG)) {
+                CompoundTag pokemonTag = tag.getCompound(Constants.NBT.CLONE_DATA_TAG);
+                var registryAccess = target.level().registryAccess();
+                Pokemon pokemon = PokemonUtility.clonePokemonNBT(registryAccess, pokemonTag, target);
+
+                // Add to party
+                PartyStore party = Cobblemon.INSTANCE.getStorage().getParty(target);
+                boolean added = party.add(pokemon);
+
+                if (added) {
+                    target.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+                    target.displayClientMessage(
+                            Component.literal("[§c§lCobblemonPokeTotem§f] §a§lPokémon added to your party or PC!"),
+                            false
+                    );
+                } else {
+                    target.displayClientMessage(
+                            Component.literal("[§c§lCobblemonPokeTotem§f] §a§lPokémon failed to add!"),
+                            false
+                    );
+                }
+            } else {
+                target.displayClientMessage(
+                        Component.literal("[§c§lCobblemonPokeTotem§f] §4§lThis item does not contain a Pokémon."),
+                        false
+                );
+            }
+        } else {
+            target.displayClientMessage(
+                    Component.literal("[§c§lCobblemonPokeTotem§f] §4§lNo Pokémon data found on this item."),
+                    false
+            );
+        }
+        return null;
+    }
+
     @Override
     public int action(CommandContext<CommandSourceStack> context) {
         return CommandUtils.runSharedCommandSelfPlayer(context, this::shared);
@@ -113,5 +187,13 @@ public final class TotemToPoke extends AbstractCommand {
 
     public int server(CommandContext<CommandSourceStack> context) {
         return CommandUtils.runSharedCommandWithPlayerArg(context, this::shared);
+    }
+
+    public int redeemAction(CommandContext<CommandSourceStack> context) {
+        return CommandUtils.runSharedCommandSelfPlayer(context, this::sharedRedeem);
+    }
+
+    public int redeemServer(CommandContext<CommandSourceStack> context) {
+        return CommandUtils.runSharedCommandWithPlayerArg(context, this::sharedRedeem);
     }
 }
