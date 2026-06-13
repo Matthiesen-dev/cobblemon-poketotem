@@ -16,6 +16,8 @@ on:
 jobs:
   publish:
     uses: matthiesen-dev/automation/.github/workflows/simple-publish.yml@main
+    permissions:
+      contents: write
     with:
       tag_name: ${{ github.event.release.tag_name }}
       artifact_basename: "cobblemon-poketotem"
