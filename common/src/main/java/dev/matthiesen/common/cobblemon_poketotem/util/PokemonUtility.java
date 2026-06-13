@@ -6,20 +6,26 @@ import com.cobblemon.mod.common.api.storage.party.PartyStore;
 import com.cobblemon.mod.common.item.PokemonItem;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.cobblemon.mod.common.util.LocalizationUtilsKt;
+import com.google.common.collect.ImmutableList;
+import dev.matthiesen.common.matthiesen_lib_api.utility.ItemBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.food.FoodConstants;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import dev.matthiesen.common.cobblemon_poketotem.Constants;
 
 import java.util.Objects;
+import java.util.Optional;
 
-public class PokemonUtility {
+public final class PokemonUtility {
     public static Pokemon createPokemonFromNBT(RegistryAccess registryAccess, CompoundTag nbt) {
         Pokemon pokemon = new Pokemon();
         return pokemon.loadFromNBT(registryAccess, nbt);
@@ -53,9 +59,22 @@ public class PokemonUtility {
         CompoundTag customDataTag = new CompoundTag();
         customDataTag.putInt("slot", slot);
         customDataTag.put(nbtTag, pokemonNBT);
-        customDataTag.putString(Constants.NBTStandardFnTag, nbtFnData);
+        customDataTag.putString(Constants.NBT.STANDARD_FN_TAG, nbtFnData);
         CustomData customData = CustomData.of(customDataTag);
-        return new ItemBuilder(initialItem).setCustomData(customData).setFunctionFeature().build();
+        var item = new ItemBuilder(initialItem).setCustomData(customData).build();
+        return setFunctionFeature(item);
+    }
+
+    public static ItemStack setFunctionFeature(ItemStack stack) {
+        int nutrition = 0;
+        float saturationModifier = 0.0f;
+        boolean canAlwaysEat = true;
+        float eatSeconds = 1000000.0f;
+        float f = FoodConstants.saturationByModifier(nutrition, saturationModifier);
+        ImmutableList.Builder<FoodProperties.PossibleEffect> effects = ImmutableList.builder();
+        FoodProperties foodProperties = new FoodProperties(nutrition, f, canAlwaysEat, eatSeconds, Optional.empty(), effects.build());
+        stack.set(DataComponents.FOOD, foodProperties);
+        return stack;
     }
 
     public static ItemStack createCustomPokeTotem(Pokemon pokemon, RegistryAccess registryAccess, Integer slot) {
@@ -65,8 +84,8 @@ public class PokemonUtility {
                 pokemon,
                 registryAccess,
                 slot,
-                Constants.NBTPokemonDataTag,
-                Constants.NBTStandardFnData
+                Constants.NBT.POKEMON_DATA_TAG,
+                Constants.NBT.STANDARD_FN_DATA
         );
     }
 
@@ -77,8 +96,8 @@ public class PokemonUtility {
                 pokemon,
                 registryAccess,
                 slot,
-                Constants.NBTCloneDataTag,
-                Constants.NBTCloneFnData
+                Constants.NBT.CLONE_DATA_TAG,
+                Constants.NBT.CLONE_FN_DATA
         );
     }
 
@@ -161,22 +180,20 @@ public class PokemonUtility {
                 pokemon.getSpecies().getTranslatedName().copy().withStyle(ChatFormatting.GRAY);
     }
 
-    public static ItemStack pokemonToItemClone(Pokemon pokemon) {
+    public static ItemStack pokeToItem(Pokemon pokemon, Component customName) {
         return new ItemBuilder(PokemonItem.from(pokemon, 1))
                 .hideAdditional()
                 .addLore(loreBuilder(pokemon))
-                .setCustomName(
-                        customNameBuilder(pokemon)
-                                .append(Component.literal(" Totem").withStyle(ChatFormatting.GRAY))
-                )
+                .setCustomName(customName)
                 .build();
     }
 
+    public static ItemStack pokemonToItemClone(Pokemon pokemon) {
+        return pokeToItem(pokemon, customNameBuilder(pokemon)
+                .append(Component.literal(" Totem").withStyle(ChatFormatting.GRAY)));
+    }
+
     public static ItemStack pokemonToItem(Pokemon pokemon) {
-        return new ItemBuilder(PokemonItem.from(pokemon, 1))
-                .hideAdditional()
-                .addLore(loreBuilder(pokemon))
-                .setCustomName(customNameBuilder(pokemon))
-                .build();
+        return pokeToItem(pokemon, customNameBuilder(pokemon));
     }
 }

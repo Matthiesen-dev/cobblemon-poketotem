@@ -15,38 +15,35 @@ import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.CobblemonSounds;
 import com.cobblemon.mod.common.api.storage.party.PartyStore;
 import com.cobblemon.mod.common.pokemon.Pokemon;
+import dev.matthiesen.common.matthiesen_lib_api.utility.SoundsPlayer;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import dev.matthiesen.common.cobblemon_poketotem.util.MenuUtilities;
 import dev.matthiesen.common.cobblemon_poketotem.util.PokemonUtility;
-import dev.matthiesen.common.cobblemon_poketotem.util.SoundsPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CPTPCScreen {
+public abstract class CPTPCScreen {
     public final ServerPlayer player;
     public final PartyStore storage;
 
-    public CPTPCScreen(ServerPlayer player, PartyStore storage) {
+    private CPTPCScreen(ServerPlayer player, PartyStore storage) {
         this.player = player;
         this.storage = storage;
     }
 
-    public Component getDisplayTitle() {
-        return Component.literal(player.getName().getString() + "'s PC");
-    }
+    public abstract Component getDisplayTitle();
+    public abstract ItemStack convertPokemonToItem(Pokemon pokemon, RegistryAccess registryAccess, Integer slot);
+    public abstract Page getBackToPartyPage();
 
-    public ItemStack convertPokemonToItem(Pokemon pokemon, RegistryAccess registryAccess, Integer slot) {
-        return PokemonUtility.createCustomPokeTotem(pokemon, registryAccess, slot);
-    }
-
-    public List<Button> getPokeButtons(List<Pokemon> pokemons) {
+    public List<Button> getPokeButtons(List<Pokemon> pokemonList) {
         List<Button> buttonList = new ArrayList<>();
 
-        for (Pokemon pokemon : pokemons) {
+        for (Pokemon pokemon : pokemonList) {
             RegistryAccess registryAccess = player.level().registryAccess();
             ItemStack finalItem = convertPokemonToItem(pokemon, registryAccess, 0);
 
@@ -68,10 +65,6 @@ public class CPTPCScreen {
         return buttonList;
     }
 
-    public Page getBackToPartyPage() {
-        return new CPTMainScreen(player).getPage();
-    }
-
     public Page getPage() {
         PlaceholderButton placeholder = new PlaceholderButton();
 
@@ -79,15 +72,15 @@ public class CPTPCScreen {
                 .display(MenuUtilities.getFrameItem())
                 .build();
 
-        List<Pokemon> pokemons = new ArrayList<>();
+        List<Pokemon> pokemonArrayList = new ArrayList<>();
         var pc = Cobblemon.INSTANCE.getStorage().getPC(this.player);
         for (Pokemon pokemon : pc) {
             if (pokemon != null) {
-                pokemons.add(pokemon);
+                pokemonArrayList.add(pokemon);
             }
         }
 
-        List<Button> pokemonButtons = getPokeButtons(pokemons);
+        List<Button> pokemonButtons = getPokeButtons(pokemonArrayList);
 
         LinkedPageButton previous = LinkedPageButton.builder()
                 .display(MenuUtilities.getNavItem("Previous"))
@@ -148,6 +141,52 @@ public class CPTPCScreen {
         if (next != null) {
             setPageTitleInternal(next, pageLength);
             setPageTitleRecursive(next);
+        }
+    }
+
+    public final static class Main extends CPTPCScreen {
+        public Main(ServerPlayer player, PartyStore storage) {
+            super(player, storage);
+        }
+
+        @Override
+        public Component getDisplayTitle() {
+            return Component.literal(player.getName().getString() + "'s PC");
+        }
+
+        @Override
+        public ItemStack convertPokemonToItem(Pokemon pokemon, RegistryAccess registryAccess, Integer slot) {
+            return PokemonUtility.createCustomPokeTotem(pokemon, registryAccess, slot);
+        }
+
+        @Override
+        public Page getBackToPartyPage() {
+            return new CPTPartyScreen.Main(player).getPage();
+        }
+    }
+
+    public final static class Clone extends CPTPCScreen {
+        public Clone(ServerPlayer player, PartyStore storage) {
+            super(player, storage);
+        }
+
+        @Override
+        public Component getDisplayTitle() {
+            return Component.literal(player.getName().getString() + "'s PC ").append(
+                    Component.literal("(Clone)").withStyle(
+                            style -> style.withColor(ChatFormatting.DARK_RED).withBold(true)
+                    )
+            );
+        }
+
+        @Override
+        public ItemStack convertPokemonToItem(Pokemon pokemon, RegistryAccess registryAccess, Integer slot) {
+            return PokemonUtility.createCustomPokeTotemClone(pokemon, registryAccess, slot);
+        }
+
+        @Override
+        public Page getBackToPartyPage() {
+            return new CPTPartyScreen.Clone(player).getPage();
         }
     }
 }
