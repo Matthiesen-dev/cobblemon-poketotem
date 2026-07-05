@@ -22,12 +22,12 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "dev.matthiesen.fabric.cobblemon_poketotem.CobblemonPokeTotemFabric"
+      "dev.matthiesen.cobblemon_poketotem.fabric.CobblemonPokeTotemFabric"
     ]
   },
   "depends": {
     "minecraft": "1.21.1",
     "cobblemon": ">=1.7.3 <1.8.0",
-    "matthiesen_lib_api": ">=1.6.0 <2.0.0"
+    "matthiesen_lib_api": ">=1.11.0 <2.0.0"
   }
 }

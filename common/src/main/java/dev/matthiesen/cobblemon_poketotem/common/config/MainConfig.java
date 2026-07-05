@@ -1,11 +1,11 @@
-package dev.matthiesen.common.cobblemon_poketotem.config;
+package dev.matthiesen.cobblemon_poketotem.common.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import dev.matthiesen.common.matthiesen_lib_api.permission.PermissionLevel;
 
-public final class CobblemonPokeTotemConfig {
+public final class MainConfig {
     @SerializedName("permissionlevels")
     public PermissionLevels permissionLevels = new PermissionLevels();
 

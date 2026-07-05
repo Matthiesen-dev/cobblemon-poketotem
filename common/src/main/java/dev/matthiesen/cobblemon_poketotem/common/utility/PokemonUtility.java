@@ -1,4 +1,4 @@
-package dev.matthiesen.common.cobblemon_poketotem.util;
+package dev.matthiesen.cobblemon_poketotem.common.utility;
 
 import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.api.pokemon.stats.Stats;
@@ -7,6 +7,7 @@ import com.cobblemon.mod.common.item.PokemonItem;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.cobblemon.mod.common.util.LocalizationUtilsKt;
 import com.google.common.collect.ImmutableList;
+import dev.matthiesen.cobblemon_poketotem.common.CobblemonPokeTotemCommon;
 import dev.matthiesen.common.matthiesen_lib_api.utility.ItemBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.RegistryAccess;
@@ -20,7 +21,6 @@ import net.minecraft.world.food.FoodConstants;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
-import dev.matthiesen.common.cobblemon_poketotem.Constants;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -59,10 +59,10 @@ public final class PokemonUtility {
         CompoundTag customDataTag = new CompoundTag();
         customDataTag.putInt("slot", slot);
         customDataTag.put(nbtTag, pokemonNBT);
-        customDataTag.putString(Constants.NBT.STANDARD_FN_TAG, nbtFnData);
+        customDataTag.putString(CobblemonPokeTotemCommon.NBT.STANDARD_FN_TAG, nbtFnData);
         CustomData customData = CustomData.of(customDataTag);
-        var item = new ItemBuilder(initialItem).setCustomData(customData).build();
-        return setFunctionFeature(item);
+        return new ItemBuilder(initialItem).setCustomData(customData).build();
+//        return setFunctionFeature(item);
     }
 
     public static ItemStack setFunctionFeature(ItemStack stack) {
@@ -84,8 +84,8 @@ public final class PokemonUtility {
                 pokemon,
                 registryAccess,
                 slot,
-                Constants.NBT.POKEMON_DATA_TAG,
-                Constants.NBT.STANDARD_FN_DATA
+                CobblemonPokeTotemCommon.NBT.POKEMON_DATA_TAG,
+                CobblemonPokeTotemCommon.NBT.STANDARD_FN_DATA
         );
     }
 
@@ -96,8 +96,8 @@ public final class PokemonUtility {
                 pokemon,
                 registryAccess,
                 slot,
-                Constants.NBT.CLONE_DATA_TAG,
-                Constants.NBT.CLONE_FN_DATA
+                CobblemonPokeTotemCommon.NBT.CLONE_DATA_TAG,
+                CobblemonPokeTotemCommon.NBT.CLONE_FN_DATA
         );
     }
 

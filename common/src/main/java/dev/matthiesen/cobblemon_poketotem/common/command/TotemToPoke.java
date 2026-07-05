@@ -1,4 +1,4 @@
-package dev.matthiesen.common.cobblemon_poketotem.registry.command;
+package dev.matthiesen.cobblemon_poketotem.common.command;
 
 import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.api.storage.party.PartyStore;
@@ -6,11 +6,10 @@ import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
-import dev.matthiesen.common.cobblemon_poketotem.CobblemonPokeTotem;
-import dev.matthiesen.common.cobblemon_poketotem.Constants;
-import dev.matthiesen.common.cobblemon_poketotem.registry.PermissionRegistry;
-import dev.matthiesen.common.cobblemon_poketotem.util.CommandUtils;
-import dev.matthiesen.common.cobblemon_poketotem.util.PokemonUtility;
+import dev.matthiesen.cobblemon_poketotem.common.CobblemonPokeTotemCommon;
+import dev.matthiesen.cobblemon_poketotem.common.registry.PermissionRegistry;
+import dev.matthiesen.cobblemon_poketotem.common.utility.CommandUtils;
+import dev.matthiesen.cobblemon_poketotem.common.utility.PokemonUtility;
 import dev.matthiesen.common.matthiesen_lib_api.command.AbstractCommand;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
@@ -42,10 +41,10 @@ public final class TotemToPoke extends AbstractCommand {
 
     @Override
     public void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext registry, Commands.CommandSelection context) {
-        var permissions = CobblemonPokeTotem.getPermissions();
+        var permissions = CobblemonPokeTotemCommon.INSTANCE.getPermissions();
         dispatcher.register(
                 Commands.literal("totemtopoke")
-                        .requires(src -> CobblemonPokeTotem.checkPermission(
+                        .requires(src -> CobblemonPokeTotemCommon.INSTANCE.checkPermission(
                                 src, permissions.TOTEMTOPOKE_PERMISSION
                         ))
                         .executes(this::action)
@@ -56,7 +55,7 @@ public final class TotemToPoke extends AbstractCommand {
 
     public LiteralArgumentBuilder<CommandSourceStack> redeemSubCMD(PermissionRegistry.Permissions permissions) {
         return Commands.literal("redeem")
-                .requires(src -> CobblemonPokeTotem.checkPermission(
+                .requires(src -> CobblemonPokeTotemCommon.INSTANCE.checkPermission(
                         src, permissions.TOTEMTOPOKE_REDEEM_PERMISSION
                 ))
                 .executes(this::redeemAction)
@@ -66,7 +65,7 @@ public final class TotemToPoke extends AbstractCommand {
     public LiteralArgumentBuilder<CommandSourceStack> redeemServerSubCMD(PermissionRegistry.Permissions permissions) {
         return Commands.literal("server")
                 .requires(
-                        src -> CobblemonPokeTotem.checkPermission(
+                        src -> CobblemonPokeTotemCommon.INSTANCE.checkPermission(
                                 src, permissions.TOTEMTOPOKE_REDEEM_SERVER_PERMISSION
                         ))
                 .then(
@@ -77,7 +76,7 @@ public final class TotemToPoke extends AbstractCommand {
 
     public LiteralArgumentBuilder<CommandSourceStack> serverSubCMD(PermissionRegistry.Permissions permissions) {
         return Commands.literal("server")
-                .requires(src -> CobblemonPokeTotem.checkPermission(
+                .requires(src -> CobblemonPokeTotemCommon.INSTANCE.checkPermission(
                         src, permissions.TOTEMTOPOKE_SERVER_PERMISSION
                 ))
                 .then(
@@ -89,8 +88,8 @@ public final class TotemToPoke extends AbstractCommand {
     public Void shared(ServerPlayer target) {
         return processTotem(
                 target,
-                Constants.NBT.CLONE_DATA_TAG,
-                Constants.NBT.POKEMON_DATA_TAG,
+                CobblemonPokeTotemCommon.NBT.CLONE_DATA_TAG,
+                CobblemonPokeTotemCommon.NBT.POKEMON_DATA_TAG,
                 "[§c§lCobblemonPokeTotem§f] §c§lYou are holding a Totem that requires the '/totemtopoke-redeem' command!",
                 (registryAccess, pokemonTag, ignoredTarget) -> PokemonUtility.createPokemonFromNBT(registryAccess, pokemonTag),
                 "[§c§lCobblemonPokeTotem§f] §a§lPokémon restored to your party or PC!",
@@ -101,8 +100,8 @@ public final class TotemToPoke extends AbstractCommand {
     public Void sharedRedeem(ServerPlayer target) {
         return processTotem(
                 target,
-                Constants.NBT.POKEMON_DATA_TAG,
-                Constants.NBT.CLONE_DATA_TAG,
+                CobblemonPokeTotemCommon.NBT.POKEMON_DATA_TAG,
+                CobblemonPokeTotemCommon.NBT.CLONE_DATA_TAG,
                 "[§c§lCobblemonPokeTotem§f] §c§lYou are holding a Totem that requires the '/totemtopoke' command!",
                 PokemonUtility::clonePokemonNBT,
                 "[§c§lCobblemonPokeTotem§f] §a§lPokémon added to your party or PC!",

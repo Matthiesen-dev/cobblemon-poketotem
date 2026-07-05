@@ -1,4 +1,4 @@
-package dev.matthiesen.common.cobblemon_poketotem.registry.command;
+package dev.matthiesen.cobblemon_poketotem.common.command;
 
 import ca.landonjw.gooeylibs2.api.UIManager;
 import com.cobblemon.mod.common.Cobblemon;
@@ -8,11 +8,11 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
-import dev.matthiesen.common.cobblemon_poketotem.CobblemonPokeTotem;
-import dev.matthiesen.common.cobblemon_poketotem.menu.CPTPartyScreen;
-import dev.matthiesen.common.cobblemon_poketotem.registry.PermissionRegistry;
-import dev.matthiesen.common.cobblemon_poketotem.util.CommandUtils;
-import dev.matthiesen.common.cobblemon_poketotem.util.PokemonUtility;
+import dev.matthiesen.cobblemon_poketotem.common.CobblemonPokeTotemCommon;
+import dev.matthiesen.cobblemon_poketotem.common.menu.CPTPartyScreen;
+import dev.matthiesen.cobblemon_poketotem.common.registry.PermissionRegistry;
+import dev.matthiesen.cobblemon_poketotem.common.utility.CommandUtils;
+import dev.matthiesen.cobblemon_poketotem.common.utility.PokemonUtility;
 import dev.matthiesen.common.matthiesen_lib_api.command.AbstractCommand;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
@@ -34,10 +34,10 @@ public final class PokeToTotem extends AbstractCommand {
 
     @Override
     public void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext registry, Commands.CommandSelection context) {
-        var permissions = CobblemonPokeTotem.getPermissions();
+        var permissions = CobblemonPokeTotemCommon.INSTANCE.getPermissions();
         dispatcher.register(
                 Commands.literal("poketototem")
-                        .requires(src -> CobblemonPokeTotem.checkPermission(
+                        .requires(src -> CobblemonPokeTotemCommon.INSTANCE.checkPermission(
                                 src, permissions.POKETOTOTEM_PERMISSION
                         ))
                         .executes(this::action)
@@ -52,7 +52,7 @@ public final class PokeToTotem extends AbstractCommand {
 
     public LiteralArgumentBuilder<CommandSourceStack> serverSubCMD(PermissionRegistry.Permissions permissions) {
         return Commands.literal("server")
-                .requires(src -> CobblemonPokeTotem.checkPermission(
+                .requires(src -> CobblemonPokeTotemCommon.INSTANCE.checkPermission(
                         src, permissions.POKETOTOTEM_SERVER_PERMISSION
                 ))
                 .then(
