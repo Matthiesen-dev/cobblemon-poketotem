@@ -1,4 +1,4 @@
-package dev.matthiesen.common.cobblemon_poketotem.menu;
+package dev.matthiesen.cobblemon_poketotem.common.menu;
 
 import ca.landonjw.gooeylibs2.api.UIManager;
 import ca.landonjw.gooeylibs2.api.button.Button;
@@ -12,14 +12,14 @@ import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.CobblemonSounds;
 import com.cobblemon.mod.common.api.storage.party.PartyStore;
 import com.cobblemon.mod.common.pokemon.Pokemon;
+import dev.matthiesen.cobblemon_poketotem.common.utility.MenuUtilities;
+import dev.matthiesen.cobblemon_poketotem.common.utility.PokemonUtility;
 import dev.matthiesen.common.matthiesen_lib_api.utility.SoundsPlayer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import dev.matthiesen.common.cobblemon_poketotem.util.MenuUtilities;
-import dev.matthiesen.common.cobblemon_poketotem.util.PokemonUtility;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,12 +1,12 @@
-package dev.matthiesen.common.cobblemon_poketotem.util;
+package dev.matthiesen.cobblemon_poketotem.common.utility;
 
 import com.cobblemon.mod.common.CobblemonItems;
+import dev.matthiesen.common.matthiesen_lib_api.utility.ItemBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import dev.matthiesen.common.matthiesen_lib_api.utility.ItemBuilder;
 
 public final class MenuUtilities {
     public static final Item BACKGROUND = Items.GRAY_STAINED_GLASS_PANE;

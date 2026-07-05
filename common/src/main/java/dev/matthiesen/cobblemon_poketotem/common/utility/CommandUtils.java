@@ -1,8 +1,8 @@
-package dev.matthiesen.common.cobblemon_poketotem.util;
+package dev.matthiesen.cobblemon_poketotem.common.utility;
 
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import dev.matthiesen.common.cobblemon_poketotem.Constants;
+import dev.matthiesen.cobblemon_poketotem.common.CobblemonPokeTotemCommon;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.network.chat.Component;
@@ -26,7 +26,7 @@ public final class CommandUtils {
         try {
             player = playerSupplier.get();
         } catch (CommandSyntaxException e) {
-            Constants.createErrorLog(logMessage, e);
+            CobblemonPokeTotemCommon.INSTANCE.createErrorLog(logMessage, e);
             context.getSource().sendFailure(Component.literal(userMessage));
             return 0;
         }
