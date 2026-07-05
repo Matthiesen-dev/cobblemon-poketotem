@@ -61,8 +61,8 @@ public final class PokemonUtility {
         customDataTag.put(nbtTag, pokemonNBT);
         customDataTag.putString(CobblemonPokeTotemCommon.NBT.STANDARD_FN_TAG, nbtFnData);
         CustomData customData = CustomData.of(customDataTag);
-        var item = new ItemBuilder(initialItem).setCustomData(customData).build();
-        return setFunctionFeature(item);
+        return new ItemBuilder(initialItem).setCustomData(customData).build();
+//        return setFunctionFeature(item);
     }
 
     public static ItemStack setFunctionFeature(ItemStack stack) {
