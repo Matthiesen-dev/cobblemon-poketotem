@@ -1,10 +1,9 @@
 package dev.matthiesen.cobblemon_poketotem.common.registry;
 
 import dev.matthiesen.cobblemon_poketotem.common.CobblemonPokeTotemCommon;
-import dev.matthiesen.common.matthiesen_lib_api.MatthiesenLibApi;
-import dev.matthiesen.common.matthiesen_lib_api.permission.AbstractPermission;
-import dev.matthiesen.common.matthiesen_lib_api.permission.Permission;
-import dev.matthiesen.common.matthiesen_lib_api.permission.PermissionLevel;
+import dev.matthiesen.matthiesen_core.common.api.permissions.Permission;
+import dev.matthiesen.matthiesen_core.common.api.permissions.PermissionLevel;
+import dev.matthiesen.matthiesen_core.common.utility.AbstractPermission;
 import net.minecraft.commands.CommandSourceStack;
 
 public final class PermissionRegistry {
@@ -42,7 +41,7 @@ public final class PermissionRegistry {
     public static void init() {}
 
     public static boolean checkPermission(CommandSourceStack source, Permission permission) {
-        return MatthiesenLibApi.getPermissionValidator().hasPermission(source, permission);
+        return CobblemonPokeTotemCommon.INSTANCE.getPermissionsManager().getPermissionValidator().hasPermission(source, permission);
     }
 
     public static PermissionLevel toPermLevel(int permLevel) {
@@ -56,7 +55,7 @@ public final class PermissionRegistry {
 
     private static Permission register(String node, int level) {
         var newPermission = modPermission(node, toPermLevel(level));
-        MatthiesenLibApi.registerPermission(newPermission);
+        CobblemonPokeTotemCommon.INSTANCE.getPermissionsManager().registerPermission(newPermission);
         return newPermission;
     }
 

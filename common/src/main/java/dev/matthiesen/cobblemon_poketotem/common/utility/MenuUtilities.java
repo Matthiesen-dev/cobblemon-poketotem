@@ -1,7 +1,7 @@
 package dev.matthiesen.cobblemon_poketotem.common.utility;
 
 import com.cobblemon.mod.common.CobblemonItems;
-import dev.matthiesen.common.matthiesen_lib_api.utility.ItemBuilder;
+import dev.matthiesen.matthiesen_core.common.utility.item.ItemBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;

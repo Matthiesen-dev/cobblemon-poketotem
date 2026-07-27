@@ -6,24 +6,19 @@ import com.cobblemon.mod.common.api.storage.party.PartyStore;
 import com.cobblemon.mod.common.item.PokemonItem;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.cobblemon.mod.common.util.LocalizationUtilsKt;
-import com.google.common.collect.ImmutableList;
 import dev.matthiesen.cobblemon_poketotem.common.CobblemonPokeTotemCommon;
-import dev.matthiesen.common.matthiesen_lib_api.utility.ItemBuilder;
+import dev.matthiesen.matthiesen_core.common.utility.item.ItemBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.food.FoodConstants;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 
 import java.util.Objects;
-import java.util.Optional;
 
 public final class PokemonUtility {
     public static Pokemon createPokemonFromNBT(RegistryAccess registryAccess, CompoundTag nbt) {
@@ -62,19 +57,6 @@ public final class PokemonUtility {
         customDataTag.putString(CobblemonPokeTotemCommon.NBT.STANDARD_FN_TAG, nbtFnData);
         CustomData customData = CustomData.of(customDataTag);
         return new ItemBuilder(initialItem).setCustomData(customData).build();
-//        return setFunctionFeature(item);
-    }
-
-    public static ItemStack setFunctionFeature(ItemStack stack) {
-        int nutrition = 0;
-        float saturationModifier = 0.0f;
-        boolean canAlwaysEat = true;
-        float eatSeconds = 1000000.0f;
-        float f = FoodConstants.saturationByModifier(nutrition, saturationModifier);
-        ImmutableList.Builder<FoodProperties.PossibleEffect> effects = ImmutableList.builder();
-        FoodProperties foodProperties = new FoodProperties(nutrition, f, canAlwaysEat, eatSeconds, Optional.empty(), effects.build());
-        stack.set(DataComponents.FOOD, foodProperties);
-        return stack;
     }
 
     public static ItemStack createCustomPokeTotem(Pokemon pokemon, RegistryAccess registryAccess, Integer slot) {

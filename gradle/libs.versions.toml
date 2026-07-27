@@ -13,6 +13,7 @@ cobblemon = "1.7.3+1.21.1"
 junit = "5.1.0"
 publish = "0.35.0"
 matthiesen_lib = "1.11.0"
+matthiesen_core = "1.0.0-beta.11"
 gooeylibs_version = "3.1.1-1.21.x"
 
 [plugins]
@@ -41,17 +42,22 @@ junit-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", ver
 matthiesen-lib-api-common = { group = "dev.matthiesen", name = "matthiesen-lib-api-common", version.ref = "matthiesen_lib" }
 matthiesen-lib-api-fabric = { group = "dev.matthiesen", name = "matthiesen-lib-api-fabric", version.ref = "matthiesen_lib" }
 matthiesen-lib-api-neoforge = { group = "dev.matthiesen", name = "matthiesen-lib-api-neoforge", version.ref = "matthiesen_lib" }
+
+matthiesen-core-common = { group = "dev.matthiesen", name = "matthiesen-core-common", version.ref = "matthiesen_core" }
+matthiesen-core-fabric = { group = "dev.matthiesen", name = "matthiesen-core-fabric", version.ref = "matthiesen_core" }
+matthiesen-core-neoforge = { group = "dev.matthiesen", name = "matthiesen-core-neoforge", version.ref = "matthiesen_core" }
+
 gooeylibs-common = { group = "ca.landonjw.gooeylibs", name = "api", version.ref = "gooeylibs_version" }
 gooeylibs-fabric = { group = "ca.landonjw.gooeylibs", name = "fabric", version.ref = "gooeylibs_version" }
 gooeylibs-neoforge = { group = "ca.landonjw.gooeylibs", name = "neoforge", version.ref = "gooeylibs_version" }
 
 
 [bundles]
-commonModImplementationNoTransitive = ["cobblemon-common", "matthiesen-lib-api-common"]
+commonModImplementationNoTransitive = ["cobblemon-common", "matthiesen-lib-api-common", "matthiesen-core-common"]
 commonModImplementation = ["gooeylibs-common"]
 fabricModImplementation = ["fabric-loader", "fabric-api", "fabric-language-kotlin"]
-fabricModImplementationNoTransitive = ["cobblemon-fabric", "matthiesen-lib-api-fabric"]
+fabricModImplementationNoTransitive = ["cobblemon-fabric", "matthiesen-lib-api-fabric", "matthiesen-core-fabric"]
 fabricModRuntimeOnly = ["gooeylibs-fabric"]
 neoforgeModImplementation = []
-neoforgeModImplementationNoTransitive = ["cobblemon-neoforge", "matthiesen-lib-api-neoforge"]
+neoforgeModImplementationNoTransitive = ["cobblemon-neoforge", "matthiesen-lib-api-neoforge", "matthiesen-core-neoforge"]
 neoforgeModRuntimeOnly = ["gooeylibs-neoforge"]

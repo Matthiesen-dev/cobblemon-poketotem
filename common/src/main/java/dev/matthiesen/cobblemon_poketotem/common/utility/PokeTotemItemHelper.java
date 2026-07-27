@@ -1,10 +1,9 @@
 package dev.matthiesen.cobblemon_poketotem.common.utility;
 
 import dev.matthiesen.cobblemon_poketotem.common.CobblemonPokeTotemCommon;
-import dev.matthiesen.common.matthiesen_lib_api.utility.RunSlashCommand;
+import dev.matthiesen.matthiesen_core.common.utility.commands.RunSlashCommand;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -49,12 +48,10 @@ public record PokeTotemItemHelper(ItemStack source) {
 
         if (!pokeTotemItemHelper.isPokeTotemItem()) return InteractionResult.PASS;
 
-        MinecraftServer server = CobblemonPokeTotemCommon.INSTANCE.getMinecraftServer();
-
         if (pokeTotemItemHelper.isNormalTotem()) {
-            RunSlashCommand.asPlayer(server, player, "totemtopoke");
+            RunSlashCommand.asPlayer(player, "totemtopoke");
         } else if (pokeTotemItemHelper.isCloneTotem()) {
-            RunSlashCommand.asPlayer(server, player, "totemtopoke redeem");
+            RunSlashCommand.asPlayer(player, "totemtopoke redeem");
         }
         return InteractionResult.FAIL; // Cancel action
     }

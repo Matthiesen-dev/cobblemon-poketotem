@@ -13,7 +13,7 @@ import dev.matthiesen.cobblemon_poketotem.common.menu.CPTPartyScreen;
 import dev.matthiesen.cobblemon_poketotem.common.registry.PermissionRegistry;
 import dev.matthiesen.cobblemon_poketotem.common.utility.CommandUtils;
 import dev.matthiesen.cobblemon_poketotem.common.utility.PokemonUtility;
-import dev.matthiesen.common.matthiesen_lib_api.command.AbstractCommand;
+import dev.matthiesen.matthiesen_core.common.api.command.CoreCommand;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -29,7 +29,7 @@ import net.minecraft.world.item.ItemStack;
  * - /poketototem clone
  * - /poketototem server [player] [slot 0-5]
  */
-public final class PokeToTotem extends AbstractCommand {
+public final class PokeToTotem implements CoreCommand {
     public static final PokeToTotem CMD = new PokeToTotem();
 
     @Override
@@ -64,7 +64,6 @@ public final class PokeToTotem extends AbstractCommand {
                 );
     }
 
-    @Override
     public int action(CommandContext<CommandSourceStack> context) {
         return CommandUtils.runSharedCommandSelfPlayer(context, (serverPlayer -> {
             UIManager.openUIForcefully(serverPlayer, new CPTPartyScreen.Main(serverPlayer).getPage());

@@ -6,16 +6,12 @@ import dev.matthiesen.cobblemon_poketotem.common.config.MainConfig;
 import dev.matthiesen.cobblemon_poketotem.common.utility.PokeTotemItemHelper;
 import dev.matthiesen.cobblemon_poketotem.common.molang.PlayerFunctionsExtension;
 import dev.matthiesen.cobblemon_poketotem.common.registry.PermissionRegistry;
-import dev.matthiesen.common.matthiesen_lib_api.abstracts.AbstractCommonMod;
-import dev.matthiesen.common.matthiesen_lib_api.config.ConfigManager;
-import dev.matthiesen.common.matthiesen_lib_api.core.interfaces.MatthiesenLibPlayerEventHandler;
-import dev.matthiesen.common.matthiesen_lib_api.permission.Permission;
 import dev.matthiesen.libs.faststats.Token;
+import dev.matthiesen.matthiesen_core.common.AbstractCommonMod;
+import dev.matthiesen.matthiesen_core.common.api.events.PlatformEvents;
+import dev.matthiesen.matthiesen_core.common.api.permissions.Permission;
+import dev.matthiesen.matthiesen_core.common.utility.config.ConfigManager;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 public final class CobblemonPokeTotemCommon extends AbstractCommonMod {
@@ -43,12 +39,19 @@ public final class CobblemonPokeTotemCommon extends AbstractCommonMod {
     @Override
     public void initialize() {
         super.initialize();
-        reload().run();
+        CONFIG_MANAGER.loadConfig();
         PermissionRegistry.init();
 
-        registerCommand(PokeToTotem.CMD);
-        registerCommand(TotemToPoke.CMD);
-        registerPlayerEventHandler(PlayerEventsHandler.INSTANCE);
+        getCommandsRegistryManager().registerCommand(PokeToTotem.CMD);
+        getCommandsRegistryManager().registerCommand(TotemToPoke.CMD);
+
+        PlatformEvents.PLAYER_USE_ITEM.subscribe(event ->
+                PokeTotemItemHelper.runInteraction(event.player(), event.level(), event.hand()));
+
+        PlatformEvents.SERVER_RELOAD.subscribe(event -> {
+            CONFIG_MANAGER.loadConfig();
+            createInfoLog("Reloaded config");
+        });
 
         PlayerFunctionsExtension.register();
 
@@ -58,14 +61,6 @@ public final class CobblemonPokeTotemCommon extends AbstractCommonMod {
     @Override
     public @NotNull @Token String getMetricsToken() {
         return METRICS_TOKEN;
-    }
-
-    @Override
-    public Runnable reload() {
-        return () -> {
-            CONFIG_MANAGER.loadConfig();
-            createInfoLog("Reloaded config");
-        };
     }
 
     public MainConfig getConfig() {
@@ -78,14 +73,5 @@ public final class CobblemonPokeTotemCommon extends AbstractCommonMod {
 
     public boolean checkPermission(CommandSourceStack source, Permission permission) {
         return PermissionRegistry.checkPermission(source, permission);
-    }
-
-    public static class PlayerEventsHandler implements MatthiesenLibPlayerEventHandler {
-        public static final PlayerEventsHandler INSTANCE = new PlayerEventsHandler();
-
-        @Override
-        public InteractionResult onPlayerUseItemResult(ServerPlayer player, Level level, InteractionHand hand) {
-            return PokeTotemItemHelper.runInteraction(player, level, hand);
-        }
     }
 }
