@@ -1,6 +1,7 @@
 package dev.matthiesen.cobblemon_poketotem.common.registry;
 
 import dev.matthiesen.cobblemon_poketotem.common.CobblemonPokeTotemCommon;
+import dev.matthiesen.cobblemon_poketotem.common.config.PokeTotemConfig;
 import dev.matthiesen.matthiesen_core.common.api.permissions.Permission;
 import dev.matthiesen.matthiesen_core.common.api.permissions.PermissionLevel;
 import dev.matthiesen.matthiesen_core.common.utility.AbstractPermission;
@@ -8,17 +9,17 @@ import net.minecraft.commands.CommandSourceStack;
 
 public final class PermissionRegistry {
     public static Permission POKETOTOTEM_PERMISSION = register("command.poketototem",
-            CobblemonPokeTotemCommon.INSTANCE.getConfig().permissionLevels.COMMAND_POKETOTOTEM_PERMISSION_LEVEL);
+            PokeTotemConfig.SERVER_CONFIG.permission_poketototem.getAsInt());
     public static Permission POKETOTOTEM_SERVER_PERMISSION = register("command.poketototem-server",
-            CobblemonPokeTotemCommon.INSTANCE.getConfig().permissionLevels.COMMAND_POKETOTOTEM_SERVER_PERMISSION_LEVEL);
+            PokeTotemConfig.SERVER_CONFIG.permission_poketototem_server.getAsInt());
     public static Permission TOTEMTOPOKE_PERMISSION = register("command.totemtopoke",
-            CobblemonPokeTotemCommon.INSTANCE.getConfig().permissionLevels.COMMAND_TOTEMTOPOKE_PERMISSION_LEVEL);
+            PokeTotemConfig.SERVER_CONFIG.permission_totemtopoke.getAsInt());
     public static Permission TOTEMTOPOKE_SERVER_PERMISSION = register("command.totemtopoke-server",
-            CobblemonPokeTotemCommon.INSTANCE.getConfig().permissionLevels.COMMAND_TOTEMTOPOKE_SERVER_LEVEL);
+            PokeTotemConfig.SERVER_CONFIG.permission_totemtopoke_server.getAsInt());
     public static Permission TOTEMTOPOKE_REDEEM_PERMISSION = register("command.totemtopoke-redeem",
-            CobblemonPokeTotemCommon.INSTANCE.getConfig().permissionLevels.COMMAND_TOTEMTOPOKE_REDEEM_PERMISSION_LEVEL);
+            PokeTotemConfig.SERVER_CONFIG.permission_totemtopoke_redeem.getAsInt());
     public static Permission TOTEMTOPOKE_REDEEM_SERVER_PERMISSION = register("command.totemtopoke-redeem-server",
-            CobblemonPokeTotemCommon.INSTANCE.getConfig().permissionLevels.COMMAND_TOTEMTOPOKE_REDEEM_SERVER_PERMISSION_LEVEL);
+            PokeTotemConfig.SERVER_CONFIG.permission_totemtopoke_redeem_server.getAsInt());
 
     public static class Permissions {
         public Permission POKETOTOTEM_PERMISSION = PermissionRegistry.POKETOTOTEM_PERMISSION;

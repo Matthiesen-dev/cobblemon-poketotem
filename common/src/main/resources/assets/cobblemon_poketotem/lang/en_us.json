@@ -1,0 +1,23 @@
+{
+  "cobblemon_poketotem.configuration.title": "Cobblemon PokeTotem Configuration",
+  "cobblemon_poketotem.configuration.section.cobblemon.poketotem.server.toml": "Server Configuration",
+  "cobblemon_poketotem.configuration.section.cobblemon.poketotem.server.toml.title": "Server Configuration",
+  "cobblemon_poketotem.configuration.permissions": "Permissions",
+  "cobblemon_poketotem.configuration.permissions.button": "Edit",
+  "cobblemon_poketotem.configuration.permissions.tooltip": "Permission levels for the commands provided by Cobblemon PokeTotem.",
+  "cobblemon_poketotem.configuration.totemtopoke-redeem": "Totem to Poke Redeem Command Permission Level",
+  "cobblemon_poketotem.configuration.totemtopoke-redeem.tooltip": "The permission level required to use the /totemtopoke-redeem command. Players with a permission level equal to or higher than this value will be able to use the command.",
+  "cobblemon_poketotem.configuration.totemtopoke-redeem-server": "Totem to Poke Redeem Server Command Permission Level",
+  "cobblemon_poketotem.configuration.totemtopoke-redeem-server.tooltip": "The permission level required to use the /totemtopoke-redeem-server command. Players with a permission level equal to or higher than this value will be able to use the command.",
+  "cobblemon_poketotem.configuration.command": "Command Permissions",
+  "cobblemon_poketotem.configuration.command.tooltip": "The permission levels required to use the commands provided by Cobblemon PokeTotem. Players with a permission level equal to or higher than the specified value will be able to use the command.",
+  "cobblemon_poketotem.configuration.command.button": "Edit",
+  "cobblemon_poketotem.configuration.totemtopoke-server": "Totem to Poke Server Command Permission Level",
+  "cobblemon_poketotem.configuration.totemtopoke-server.tooltip": "The permission level required to use the /totemtopoke-server command. Players with a permission level equal to or higher than this value will be able to use the command.",
+  "cobblemon_poketotem.configuration.poketototem": "Poke to Totem Command Permission Level",
+  "cobblemon_poketotem.configuration.poketototem.tooltip": "The permission level required to use the /poketototem command. Players with a permission level equal to or higher than this value will be able to use the command.",
+  "cobblemon_poketotem.configuration.poketototem-server": "Poke to Totem Server Command Permission Level",
+  "cobblemon_poketotem.configuration.poketototem-server.tooltip": "The permission level required to use the /poketototem-server command. Players with a permission level equal to or higher than this value will be able to use the command.",
+  "cobblemon_poketotem.configuration.totemtopoke": "Totem to Poke Command Permission Level",
+  "cobblemon_poketotem.configuration.totemtopoke.tooltip": "The permission level required to use the /totemtopoke command. Players with a permission level equal to or higher than this value will be able to use the command."
+}

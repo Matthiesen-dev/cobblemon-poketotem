@@ -7,6 +7,7 @@
   "authors": [
     "${mod_author}"
   ],
+  "icon": "icon.png",
   "contact": {
     "issues": "${github_url}/issues",
     "sources": "${github_url}"
@@ -28,6 +29,7 @@
   "depends": {
     "minecraft": "1.21.1",
     "cobblemon": ">=1.7.3 <1.8.0",
-    "matthiesen_core": ">=1.0.0-beta.11 <2.0.0"
+    "matthiesen_core": ">=1.0.0-beta.37 <2.0.0",
+    "forgeconfigapiport": ">=21.1.6 <22.0.0"
   }
 }
