@@ -36,7 +36,7 @@ public final class CobblemonPokeTotemCommon extends AbstractCommonMod {
     @Override
     public void initialize() {
         super.initialize();
-        registerModConfig(MOD_ID, ModConfigType.STARTUP, PokeTotemConfig.SERVER_SPEC, "cobblemon_poketotem/server.toml");
+        registerModConfig(MOD_ID, ModConfigType.STARTUP, PokeTotemConfig.SERVER_SPEC);
 
         PermissionRegistry.init();
         getCommandsRegistryManager().registerCommand(PokeToTotem.CMD);
