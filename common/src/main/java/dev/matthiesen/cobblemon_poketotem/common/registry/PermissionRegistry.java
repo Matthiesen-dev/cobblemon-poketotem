@@ -9,17 +9,17 @@ import net.minecraft.commands.CommandSourceStack;
 
 public final class PermissionRegistry {
     public static Permission POKETOTOTEM_PERMISSION = register("command.poketototem",
-            PokeTotemConfig.SERVER_CONFIG.permission_poketototem.getAsInt());
+            PokeTotemConfig.SERVER_CONFIG.permission_poketototem.get().getLevel());
     public static Permission POKETOTOTEM_SERVER_PERMISSION = register("command.poketototem-server",
-            PokeTotemConfig.SERVER_CONFIG.permission_poketototem_server.getAsInt());
+            PokeTotemConfig.SERVER_CONFIG.permission_poketototem_server.get().getLevel());
     public static Permission TOTEMTOPOKE_PERMISSION = register("command.totemtopoke",
-            PokeTotemConfig.SERVER_CONFIG.permission_totemtopoke.getAsInt());
+            PokeTotemConfig.SERVER_CONFIG.permission_totemtopoke.get().getLevel());
     public static Permission TOTEMTOPOKE_SERVER_PERMISSION = register("command.totemtopoke-server",
-            PokeTotemConfig.SERVER_CONFIG.permission_totemtopoke_server.getAsInt());
+            PokeTotemConfig.SERVER_CONFIG.permission_totemtopoke_server.get().getLevel());
     public static Permission TOTEMTOPOKE_REDEEM_PERMISSION = register("command.totemtopoke-redeem",
-            PokeTotemConfig.SERVER_CONFIG.permission_totemtopoke_redeem.getAsInt());
+            PokeTotemConfig.SERVER_CONFIG.permission_totemtopoke_redeem.get().getLevel());
     public static Permission TOTEMTOPOKE_REDEEM_SERVER_PERMISSION = register("command.totemtopoke-redeem-server",
-            PokeTotemConfig.SERVER_CONFIG.permission_totemtopoke_redeem_server.getAsInt());
+            PokeTotemConfig.SERVER_CONFIG.permission_totemtopoke_redeem_server.get().getLevel());
 
     public static class Permissions {
         public Permission POKETOTOTEM_PERMISSION = PermissionRegistry.POKETOTOTEM_PERMISSION;
