@@ -10,7 +10,7 @@ import dev.matthiesen.cobblemon_poketotem.common.CobblemonPokeTotemCommon;
 import dev.matthiesen.cobblemon_poketotem.common.registry.PermissionRegistry;
 import dev.matthiesen.cobblemon_poketotem.common.utility.CommandUtils;
 import dev.matthiesen.cobblemon_poketotem.common.utility.PokemonUtility;
-import dev.matthiesen.common.matthiesen_lib_api.command.AbstractCommand;
+import dev.matthiesen.matthiesen_core.common.api.command.CoreCommand;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -31,7 +31,7 @@ import net.minecraft.world.item.component.CustomData;
  * - /totemtopoke redeem server [player]
  * - /totemtopoke server [player]
  */
-public final class TotemToPoke extends AbstractCommand {
+public final class TotemToPoke implements CoreCommand {
     public static final TotemToPoke CMD = new TotemToPoke();
 
     @FunctionalInterface
@@ -167,7 +167,6 @@ public final class TotemToPoke extends AbstractCommand {
         return null;
     }
 
-    @Override
     public int action(CommandContext<CommandSourceStack> context) {
         return CommandUtils.runSharedCommandSelfPlayer(context, this::shared);
     }

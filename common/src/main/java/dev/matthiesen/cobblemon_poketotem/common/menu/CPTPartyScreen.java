@@ -14,7 +14,7 @@ import com.cobblemon.mod.common.api.storage.party.PartyStore;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import dev.matthiesen.cobblemon_poketotem.common.utility.MenuUtilities;
 import dev.matthiesen.cobblemon_poketotem.common.utility.PokemonUtility;
-import dev.matthiesen.common.matthiesen_lib_api.utility.SoundsPlayer;
+import dev.matthiesen.matthiesen_core.common.utility.SoundsPlayer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;

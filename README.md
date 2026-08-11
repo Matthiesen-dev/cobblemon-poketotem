@@ -1,7 +1,7 @@
 # Cobblemon Poketotem
 
 <div>
-  <img src="https://mods.matthiesen.dev/badges/matthiesenLibAPI.svg" alt="Matthiesen Lib API">
+  <img src="https://mods.matthiesen.dev/badges/matthiesenCore.svg" alt="Matthiesen Core">
   <img src="https://mods.matthiesen.dev/badges/cobblemon.svg" alt="Cobblemon">
   <img src="https://mods.matthiesen.dev/badges/gooeylibs.svg" alt="GooeyLibs">
 </div>
@@ -21,9 +21,11 @@ the Cloned PokeTotems instead of the Normal PokeTotems.
 
 ## Requirements
 
+- [Matthiesen Core](https://modrinth.com/mod/matthiesen-core/)
 - [Cobblemon v1.7.3+](https://modrinth.com/mod/cobblemon/)
-- [Matthiesen Lib API](https://modrinth.com/mod/matthiesen-lib-api/)
 - [GooeyLibs v3.1.1-1.21.x+](https://modrinth.com/mod/gooeylibs)
+- [Fabric API](https://modrinth.com/mod/fabric-api) (Fabric only)
+- [Forge Config API Port](https://modrinth.com/mod/forge-config-api-port) (Fabric only)
 
 ## Docs
 
@@ -43,7 +45,7 @@ how this mod is being used and improve it over time. You can learn more about th
 
 You can also view the data collected by this mod on the [FastStats: Cobblemon Poketotem](https://faststats.dev/project/cobblemon-poketotem) page.
 
-To opt out of this data collection, set the `enabled` property to `false` in the `<game_directory>/config/matthiesen_lib_api/metrics.properties` file.
+To opt out of this data collection, set the `enabled` property to `false` in the `<game_directory>/config/matthiesen_core/metrics.properties` file.
 
 ## License
 
