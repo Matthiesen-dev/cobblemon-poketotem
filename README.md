@@ -22,7 +22,7 @@ the Cloned PokeTotems instead of the Normal PokeTotems.
 ## Requirements
 
 - [Matthiesen Core](https://modrinth.com/mod/matthiesen-core/)
-- [Cobblemon v1.7.3+](https://modrinth.com/mod/cobblemon/)
+- [Cobblemon](https://modrinth.com/mod/cobblemon/)
 - [GooeyLibs v3.1.1-1.21.x+](https://modrinth.com/mod/gooeylibs)
 - [Fabric API](https://modrinth.com/mod/fabric-api) (Fabric only)
 - [Forge Config API Port](https://modrinth.com/mod/forge-config-api-port) (Fabric only)
@@ -33,9 +33,10 @@ Documentation for this mod can be found at [mods.matthiesen.dev](https://mods.ma
 
 ## Version Compatibility
 
-| Minecraft Version | Matthiesen Core Version | Mod Version |
-|-------------------|-------------------------|-------------|
-| 1.21.1            | 1.x.x                   | 1.x.x       |
+| Minecraft Version | Matthiesen Core Version | Cobblemon Version | Mod Version |
+|-------------------|-------------------------|-------------------|-------------|
+| 1.21.1            | 1.x.x                   | 1.7.3             | 1.x.x       |
+| 1.21.1            | 1.2.7                   | 1.8.0             | 1.6.0+      |
 
 ## FastStats Metrics
 
