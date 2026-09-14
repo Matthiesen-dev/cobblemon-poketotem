@@ -11,9 +11,9 @@ architectury {
 dependencies {
     minecraft(libs.minecraft)
     mappings(loom.officialMojangMappings())
-    modApi(files("${rootProject.rootDir}/jars/molang-1.1.20.jar"))
 
     compileOnly(libs.bundles.commonCompileOnly)
+    modApi(libs.bundles.commonModApi)
     modImplementation(libs.bundles.commonModImplementationNoTransitive) { isTransitive = false }
     modImplementation(libs.bundles.commonModImplementation)
 
