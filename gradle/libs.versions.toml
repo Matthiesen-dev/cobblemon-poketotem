@@ -48,7 +48,7 @@ gooeylibs-fabric = { group = "ca.landonjw.gooeylibs", name = "fabric", version.r
 gooeylibs-neoforge = { group = "ca.landonjw.gooeylibs", name = "neoforge", version.ref = "gooeylibs_version" }
 forge-config-api-port-common = { group = "fuzs.forgeconfigapiport", name = "forgeconfigapiport-common-neoforgeapi", version.ref = "forge-config-api-port" }
 forge-config-api-port-fabric = { group = "fuzs.forgeconfigapiport", name = "forgeconfigapiport-fabric", version.ref = "forge-config-api-port" }
-molang = { group = "com.cobblemon.bedrockk", name = "molang", version.ref = "molang" }
+molang = { group = "com.bedrockk", name = "molang", version.ref = "molang" }
 
 [bundles]
 commonCompileOnly = ["forge-config-api-port-common"]
