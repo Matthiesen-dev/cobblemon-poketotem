@@ -1,6 +1,5 @@
 package dev.matthiesen.cobblemon_poketotem.common.command;
 
-import ca.landonjw.gooeylibs2.api.UIManager;
 import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.api.storage.party.PartyStore;
 import com.cobblemon.mod.common.pokemon.Pokemon;
@@ -14,6 +13,7 @@ import dev.matthiesen.cobblemon_poketotem.common.registry.PermissionRegistry;
 import dev.matthiesen.cobblemon_poketotem.common.utility.CommandUtils;
 import dev.matthiesen.cobblemon_poketotem.common.utility.PokemonUtility;
 import dev.matthiesen.matthiesen_core.common.api.command.CoreCommand;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.ServerUIManager;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -66,14 +66,14 @@ public final class PokeToTotem implements CoreCommand {
 
     public int action(CommandContext<CommandSourceStack> context) {
         return CommandUtils.runSharedCommandSelfPlayer(context, (serverPlayer -> {
-            UIManager.openUIForcefully(serverPlayer, new CPTPartyScreen.Main(serverPlayer).getPage());
+            ServerUIManager.openUIForcefully(serverPlayer, new CPTPartyScreen.Main(serverPlayer).getPage());
             return null;
         }));
     }
 
     public int clone(CommandContext<CommandSourceStack> context) {
         return CommandUtils.runSharedCommandSelfPlayer(context, (serverPlayer -> {
-            UIManager.openUIForcefully(serverPlayer, new CPTPartyScreen.Clone(serverPlayer).getPage());
+            ServerUIManager.openUIForcefully(serverPlayer, new CPTPartyScreen.Clone(serverPlayer).getPage());
             return null;
         }));
     }

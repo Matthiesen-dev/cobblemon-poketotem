@@ -1,19 +1,16 @@
 package dev.matthiesen.cobblemon_poketotem.common.menu;
 
-import ca.landonjw.gooeylibs2.api.UIManager;
-import ca.landonjw.gooeylibs2.api.button.Button;
-import ca.landonjw.gooeylibs2.api.button.GooeyButton;
-import ca.landonjw.gooeylibs2.api.button.PlaceholderButton;
-import ca.landonjw.gooeylibs2.api.helpers.PaginationHelper;
-import ca.landonjw.gooeylibs2.api.page.GooeyPage;
-import ca.landonjw.gooeylibs2.api.page.Page;
-import ca.landonjw.gooeylibs2.api.template.types.ChestTemplate;
 import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.CobblemonSounds;
 import com.cobblemon.mod.common.api.storage.party.PartyStore;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import dev.matthiesen.cobblemon_poketotem.common.utility.MenuUtilities;
 import dev.matthiesen.cobblemon_poketotem.common.utility.PokemonUtility;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.ServerUIManager;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.button.*;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.helpers.PaginationHelper;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.page.*;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.template.types.ChestTemplate;
 import dev.matthiesen.matthiesen_core.common.utility.SoundsPlayer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.RegistryAccess;
@@ -56,7 +53,7 @@ public abstract class CPTPartyScreen {
                 finalItem = MenuUtilities.getEmptyItem();
             }
 
-            Button button = GooeyButton.builder()
+            Button button = ServerButton.builder()
                     .display(finalItem)
                     .onClick((action) -> {
                         ServerPlayer sender = action.getPlayer();
@@ -66,8 +63,8 @@ public abstract class CPTPartyScreen {
                         if (!finalItem.is(MenuUtilities.POKE_BALL)) {
                             new SoundsPlayer(CobblemonSounds.POKEDEX_CLICK).play(sender);
                             PokemonUtility.givePlayerPokemonItem(sender, finalItem, storage, pokemon);
-                            UIManager.closeUI(player);
-                            UIManager.openUIForcefully(player, getPage());
+                            ServerUIManager.closeUI(player);
+                            ServerUIManager.openUIForcefully(player, getPage());
                         }
                     })
                     .build();
@@ -82,16 +79,16 @@ public abstract class CPTPartyScreen {
         PlaceholderButton placeholder = new PlaceholderButton();
         List<Button> buttons = getPokeButtons();
 
-        Button frame = GooeyButton.builder()
+        Button frame = ServerButton.builder()
                 .display(MenuUtilities.getFrameItem())
                 .build();
 
-        Button openPC = GooeyButton.builder()
+        Button openPC = ServerButton.builder()
                 .display(MenuUtilities.getSeparatorItem())
                 .onClick((action) -> {
                     ServerPlayer sender = action.getPlayer();
                     new SoundsPlayer(CobblemonSounds.PC_ON).play(sender);
-                    UIManager.openUIForcefully(player, getOpenPCScreen(player, storage));
+                    ServerUIManager.openUIForcefully(player, getOpenPCScreen(player, storage));
                 })
                 .build();
 
@@ -109,7 +106,7 @@ public abstract class CPTPartyScreen {
                 .row(2, frame)
                 .build();
 
-        GooeyPage page = PaginationHelper.createPagesFromPlaceholders(template, buttons, null);
+        ServerPage page = PaginationHelper.createPagesFromPlaceholders(template, buttons, null);
 
         page.setTitle(getDisplayTitle());
 
