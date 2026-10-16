@@ -1,22 +1,18 @@
 package dev.matthiesen.cobblemon_poketotem.common.menu;
 
-import ca.landonjw.gooeylibs2.api.UIManager;
-import ca.landonjw.gooeylibs2.api.button.Button;
-import ca.landonjw.gooeylibs2.api.button.GooeyButton;
-import ca.landonjw.gooeylibs2.api.button.PlaceholderButton;
-import ca.landonjw.gooeylibs2.api.button.linked.LinkType;
-import ca.landonjw.gooeylibs2.api.button.linked.LinkedPageButton;
-import ca.landonjw.gooeylibs2.api.helpers.PaginationHelper;
-import ca.landonjw.gooeylibs2.api.page.LinkedPage;
-import ca.landonjw.gooeylibs2.api.page.Page;
-import ca.landonjw.gooeylibs2.api.template.slot.TemplateSlotDelegate;
-import ca.landonjw.gooeylibs2.api.template.types.ChestTemplate;
 import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.CobblemonSounds;
 import com.cobblemon.mod.common.api.storage.party.PartyStore;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import dev.matthiesen.cobblemon_poketotem.common.utility.MenuUtilities;
 import dev.matthiesen.cobblemon_poketotem.common.utility.PokemonUtility;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.ServerUIManager;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.button.*;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.button.linked.*;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.helpers.PaginationHelper;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.page.*;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.template.slot.TemplateSlotDelegate;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.template.types.ChestTemplate;
 import dev.matthiesen.matthiesen_core.common.utility.SoundsPlayer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.RegistryAccess;
@@ -47,14 +43,14 @@ public abstract class CPTPCScreen {
             RegistryAccess registryAccess = player.level().registryAccess();
             ItemStack finalItem = convertPokemonToItem(pokemon, registryAccess, 0);
 
-            Button button = GooeyButton.builder()
+            Button button = ServerButton.builder()
                     .display(finalItem)
                     .onClick((action) -> {
                         if (!finalItem.is(MenuUtilities.POKE_BALL)) {
                             new SoundsPlayer(CobblemonSounds.POKEDEX_CLICK).play(player);
                             PokemonUtility.givePlayerPokemonItem(player, finalItem, storage, pokemon);
-                            UIManager.closeUI(player);
-                            UIManager.openUIForcefully(player, getPage());
+                            ServerUIManager.closeUI(player);
+                            ServerUIManager.openUIForcefully(player, getPage());
                         }
                     })
                     .build();
@@ -68,7 +64,7 @@ public abstract class CPTPCScreen {
     public Page getPage() {
         PlaceholderButton placeholder = new PlaceholderButton();
 
-        Button frame = GooeyButton.builder()
+        Button frame = ServerButton.builder()
                 .display(MenuUtilities.getFrameItem())
                 .build();
 
@@ -94,11 +90,11 @@ public abstract class CPTPCScreen {
                 .onClick((action) -> new SoundsPlayer(CobblemonSounds.PC_CLICK).play(player))
                 .build();
 
-        Button backToParty = GooeyButton.builder()
+        Button backToParty = ServerButton.builder()
                 .display(MenuUtilities.getBackToPartyItem())
                 .onClick((action) -> {
                     new SoundsPlayer(CobblemonSounds.PC_OFF).play(player);
-                    UIManager.openUIForcefully(player, getBackToPartyPage());
+                    ServerUIManager.openUIForcefully(player, getBackToPartyPage());
                 })
                 .build();
 
@@ -118,7 +114,7 @@ public abstract class CPTPCScreen {
     }
 
     private Button getInfoButton(int currentPage, int pageLength) {
-        return GooeyButton.builder()
+        return ServerButton.builder()
                 .display(MenuUtilities.getPageItem(currentPage, pageLength))
                 .build();
     }
