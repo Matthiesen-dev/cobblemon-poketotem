@@ -6,7 +6,7 @@ import dev.matthiesen.cobblemon_poketotem.common.config.PokeTotemConfig;
 import dev.matthiesen.cobblemon_poketotem.common.utility.PokeTotemItemHelper;
 import dev.matthiesen.cobblemon_poketotem.common.molang.PlayerFunctionsExtension;
 import dev.matthiesen.cobblemon_poketotem.common.registry.PermissionRegistry;
-import dev.matthiesen.libs.faststats.Token;
+import dev.faststats.Token;
 import dev.matthiesen.matthiesen_core.common.AbstractCommonMod;
 import dev.matthiesen.matthiesen_core.common.api.events.PlatformEvents;
 import dev.matthiesen.matthiesen_core.common.api.permissions.Permission;
